@@ -1,3 +1,4 @@
+require('dotenv').config({path: __dirname + '/.env'})
 const express = require('express');
 const  router = express.Router();
 const  app = express();
@@ -58,11 +59,10 @@ db.on("disconnected", function () {
 });
 
 /** SERVE PUBLIC FILES */
-//app.use('/', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/public'));
 
 app.get('/web-driver', (req, res) => {
-  console.log(req.url," is rrrrr")
-  res.sendFile(path.join(__dirname, 'dist/web-driver/index.html'))
+  res.sendFile(path.join(__dirname, 'public/web-driver/index.html'))
 });
 
 const sampleRouter = require('./server/sampleRouter');
@@ -81,7 +81,6 @@ const server = app.listen(process.env.PORT || '3000', function () {
     console.log('[SERVER] I\'m listening on PORT: ' + (process.env.PORT || '3000'));
 });
 
-console.log(process.env.MONGODB_URL," is ddddddddddddddddddddddddddd")
 //connectWithRetry();
 
 module.exports.server = server;

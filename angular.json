@@ -8,12 +8,12 @@
         "schematics": {},
         "root": "",
         "sourceRoot": "web-driver",
-        "prefix": "mean",
+        "prefix": "web-driver",
         "architect": {
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
-              "outputPath": "dist/web-driver",
+              "outputPath": "public/web-driver",
               "index": "web-driver/index.html",
               "main": "web-driver/main.ts",
               "polyfills": "web-driver/polyfills.ts",
