@@ -1,0 +1,90 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+      "web-driver": {
+        "projectType": "application",
+        "schematics": {},
+        "root": "",
+        "sourceRoot": "web-driver",
+        "prefix": "mean",
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-angular:browser",
+            "options": {
+              "outputPath": "dist/web-driver",
+              "index": "web-driver/index.html",
+              "main": "web-driver/main.ts",
+              "polyfills": "web-driver/polyfills.ts",
+              "tsConfig": "web-driver-tsconfig.json",
+              "assets": [
+                "web-driver/favicon.ico",
+                "web-driver/assets"
+              ],
+              "styles": [
+                "web-driver/styles.css"
+              ],
+              "scripts": [],
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
+            "configurations": {
+              "production": {
+                "fileReplacements": [
+                  {
+                    "replace": "web-driver/environments/environment.ts",
+                    "with": "web-driver/environments/environment.prod.ts"
+                  }
+                ],
+                "optimization": true,
+                "outputHashing": "all",
+                "sourceMap": false,
+                "namedChunks": false,
+                "extractLicenses": true,
+                "vendorChunk": false,
+                "buildOptimizer": true,
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "2mb",
+                    "maximumError": "5mb"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "6kb",
+                    "maximumError": "10kb"
+                  }
+                ]
+              }
+            },
+            "defaultConfiguration": ""
+          },
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "options": {
+              "buildTarget": "web-driver:build"
+            },
+            "configurations": {
+              "production": {
+                "buildTarget": "web-driver:build:production"
+              }
+            }
+          },
+          "extract-i18n": {
+            "builder": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+              "buildTarget": "web-driver:build"
+            }
+          }
+        }
+      }
+    },
+    "cli": {
+      "analytics": false
+    }
+  }
