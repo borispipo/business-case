@@ -44,7 +44,6 @@ db.on("error", function (error) {
 db.on("connected", function () {
     console.log("MongoDB connected!");
     // console.log(mongoose.connection.readyState);
-    logicalCtl.insertMany(Object.values(logicalNames));
 });
 db.once("open", function () {
     console.log("MongoDB connection opened!");
@@ -73,9 +72,6 @@ app.get('/web-admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/web-admin/index.html'))
 });
 
-const sampleRouter = require('./server/sampleRouter');
-// register controllers for endpoints
-router.use('/sample', sampleRouter);//Api for devices
 // any route starting with '/api' will be interfacing our API
 app.use('/api', router);
 
@@ -89,7 +85,7 @@ const server = app.listen(process.env.PORT || '3000', function () {
     console.log('[SERVER] I\'m listening on PORT: ' + (process.env.PORT || '3000'));
 });
 
-//connectWithRetry();
+connectWithRetry();
 
 module.exports.server = server;
 module.exports.mongo = mongoose;
