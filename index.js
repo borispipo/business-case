@@ -5,12 +5,14 @@ const  app = express();
 const routes = require("./server/routes");
 const path = require("path");
 const http = require("http");
+const cors = require('cors')
 
 const PORT = process.env.PORT || '3000';
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); // mongoose module
 
+app.use(cors());
 app.use(bodyParser.json()); // parse application/json
 
 const connectWithRetry = function () {

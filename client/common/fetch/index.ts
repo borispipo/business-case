@@ -1,9 +1,11 @@
 import env from "$environment";
+import Delivery from "$ctypes/Delivery";
+import Package from "$ctypes/Package";
 
 export const API_HOST = `${env.API_HOST && env.API_HOST.trim().replace(/\\+$/, '') || ""}`
 
-const unfetch = (path, options)=>{
-    return fetch(`${API_HOST}/${path.replace(/\\+$/, '')}`,options).then((res=>res.json));
+export function unfetch<T>(path, options):Promise<T>{
+    return fetch(`${API_HOST}/api/${path.replace(/\\+$/, '')}`,options).then((res=>res.json())) as Promise<T>;
 }
 
 /***@function
@@ -17,16 +19,16 @@ export const get = unfetch;
  * function permettant d'exécuter la requête ajax POST, les paramètres sont identiques à ceux de la function {@link unfetch} à la seule différence que 
  * la méthode utilisée (props method des options) est POST
  */
-export const post = (url, options = {})=> {
+export function post<T>(url, options = {}) : Promise<T> {
   options = Object.assign({},options);
   return unfetch(url,{...Object.assign({},options),method : 'POST'});
 };
 
-export const put = (url, options = {})=> {
+export function put <T>(url, options = {}) : Promise<T> {
     return unfetch(url,{...Object.assign({},options),method : 'PUT'});
 };
 
-const deleteApi = (url, options = {})=> {
+function deleteApi <T>(url, options = {}) : Promise<T>{
     return unfetch(url,{...Object.assign({},options),method : 'DELETE'});
 };
 
@@ -35,12 +37,16 @@ export {deleteApi as delete};
 /***
     Get all packages
 */
-export const getPackages = (options)=> get(`package`,options);
+export function getPackages(options) : Promise<Array<Package>> {
+    return get<Array<Package>>(`package`,options);
+}
 
 /***
     get one package
 */
-export const getPackage = (packageId,options)=> get(`package/${packageId}`,options);
+export function getPackage (packageId,options) : Promise<Package>{
+    return get<Package>(`package/${packageId}`,options)
+};
 
 /***
     delete a package
@@ -50,8 +56,8 @@ export const deletePackage = (packageId,options)=> deleteApi(`package/${packageI
 /***
     add New package,
 */
-export const addPackage = (data,options)=>{
-    return post(`package/addNewPackageId`,{
+export function addPackage(data,options) : Promise<Package>{
+    return post<Package>(`package/addNewPackageId`,{
         ...Object.assign({},options),
         body : JSON.stringify(data),
     });
@@ -69,12 +75,16 @@ export const updatePackage = (packageId,data,options)=>{
 /***
     Get all deliveries
 */
-export const getDeliveries = (options)=> get(`delivery`,options);
+export function getDeliveries(options) : Promise<Array<Delivery>>{
+    return get<Array<Delivery>>(`delivery`,options);
+}
 
 /***
     get one delivery
 */
-export const getDelivery = (deliveryId,options)=> get(`delivery/${deliveryId}`,options);
+export function getDelivery (deliveryId,options) : Promise<Delivery> {
+    return get<Delivery>(`delivery/${deliveryId}`,options);
+}
 
 /***
     delete a delivery
@@ -84,8 +94,8 @@ export const deleteDelivery = (deliveryId,options)=> deleteApi(`delivery/${deliv
 /***
     add New delivery,
 */
-export const addDelivery = (data,options)=>{
-    return post(`delivery/addNewDeliveryId`,{
+export function addDelivery(data,options) : Promise<Delivery>{
+    return post<Delivery>(`delivery/addNewDeliveryId`,{
         ...Object.assign({},options),
         body : JSON.stringify(data),
     });

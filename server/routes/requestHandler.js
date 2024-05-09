@@ -6,7 +6,7 @@ const ObjectId = mongoose.Types.ObjectId;
 */
 const handleError = (e,res)=>{
     const status = typeof e?.status =='number' ? e.status : 500;
-    const r = {message:typeof(e) =='string' && e? e : e && (e?.message) || e?.toString()||null,error:e,stackStrace:e?.stackStrace,status};
+    const r = {message:typeof(e) =='string' && e? e : e && (e?.message) || e?.toString()||null,status};
     if(process.env.NODE_ENV !== "production"){
         console.log(e,`error gnenerated on handling request`)
     }
