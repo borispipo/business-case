@@ -4,7 +4,9 @@ const  router = express.Router();
 const  app = express();
 const routes = require("./server/routes");
 const path = require("path");
+const http = require("http");
 
+const PORT = process.env.PORT || '3000';
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); // mongoose module
@@ -81,10 +83,16 @@ for(let i in routes){
 }
 
 /** RUN APP */
-const server = app.listen(process.env.PORT || '3000', function () {
-    console.log('[SERVER] I\'m listening on PORT: ' + (process.env.PORT || '3000'));
-});
+const server = http.createServer(app);
 
+/****
+  socket IO server
+*/
+const io = require("./server/socket").init(server);
+server.listen(PORT, () => console.log(`I'm listening on : ${PORT}`));
+module.exports.socketIo = io;
+
+//connect mongo db
 connectWithRetry();
 
 module.exports.server = server;
