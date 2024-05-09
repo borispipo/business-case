@@ -1,5 +1,4 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
@@ -7,23 +6,23 @@
         "projectType": "application",
         "schematics": {},
         "root": "",
-        "sourceRoot": "web-driver",
+        "sourceRoot": "client/web-driver",
         "prefix": "web-driver",
         "architect": {
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
               "outputPath": "public/web-driver",
-              "index": "web-driver/index.html",
-              "main": "web-driver/main.ts",
-              "polyfills": "client/polyfills.ts",
-              "tsConfig": "web-driver/tsconfig.json",
+              "index": "client/web-driver/index.html",
+              "main": "client/web-driver/main.ts",
+              "polyfills": "client/common/polyfills.ts",
+              "tsConfig": "client/web-driver/tsconfig.json",
               "assets": [
-                "web-driver/favicon.ico",
-                "web-driver/assets"
+                "client/web-driver/favicon.ico",
+                "client/web-driver/assets"
               ],
               "styles": [
-                "web-driver/styles.css"
+                "client/web-driver/styles.css"
               ],
               "scripts": [],
               "vendorChunk": true,
@@ -38,8 +37,8 @@
               "production": {
                 "fileReplacements": [
                   {
-                    "replace": "web-driver/environments/environment.ts",
-                    "with": "web-driver/environments/environment.prod.ts"
+                    "replace": "client/web-driver/environments/environment.ts",
+                    "with": "client/web-driver/environments/environment.prod.ts"
                   }
                 ],
                 "optimization": true,

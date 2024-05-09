@@ -6,12 +6,12 @@
     "private": true,
     "scripts": {
         "ng": "ng",
-        "start": "npm run build && node index.js",
+        "start-server": "node index.js",
+        "start" : "npm run start-server && npm run serve",
         "dev": "npm run build-dev && npm run start-dev",
         "start-dev": "nodemon ./index.js",
-        "build-dev": "ng build",
-        "serve": "ng serve --proxy-config proxy.conf.json",
-        "build": "ng build --prod",
+        "serve-web-driver": "ng serve web-driver --proxy-config proxy.conf.json",
+        "build": "ng build",
         "test": "ng test",
         "lint": "ng lint"
     },

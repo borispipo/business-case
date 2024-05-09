@@ -22,58 +22,58 @@
     "paths": {
       /** web drivers paths*/
       "$wdriver/*": [
-        "web-driver/*"
+        "client/web-driver/*"
       ],
       "$wd/*" : [
-        "web-driver/app/*"
+        "client/web-driver/app/*"
       ],
       "$wdcomponents/*" : [
-        "web-driver/components*"
+        "client/web-driver/components*"
       ],
       "$wdutils/*" : [
-        "web-driver/utils/*"
+        "client/web-driver/utils/*"
       ],
       
       /**
         web tacker paths
       */
       "$wtracker/*": [
-        "web-tracker/*"
+        "client/web-tracker/*"
       ],
       "$wt/*" : [
-        "web-tracker/app/*"
+        "client/web-tracker/app/*"
       ],
       "$wtcomponents/*" : [
-        "web-tracker/components*"
+        "client/web-tracker/components*"
       ],
       "$wtutils/*" : [
-        "web-tracker/utils/*"
+        "client/web-tracker/utils/*"
       ],
       
       /*
         web admin modules
       **/
       "$wadmin/*": [
-        "web-admin/*"
+        "client/web-tracker/*"
       ],
       "$wa/*" : [
-        "web-admin/app/*"
+        "client/web-tracker/app/*"
       ],
       "$wacomponents/*" : [
-        "web-admin/components*"
+        "client/web-tracker/components*"
       ],
       "$wautils/*" : [
-        "web-admin/utils/*"
+        "client/web-tracker/utils/*"
       ],
       
       /**
         shared and common modules paths
       **/
-      "$client/*" : [
-        "client/*"
+      "$common/*" : [
+        "client/common/*"
       ],
       "$utils/*" : [
-        "client/utils*"
+        "client/common/utils*"
       ],
       
       /**public paths*/
