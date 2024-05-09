@@ -7,7 +7,7 @@
     "scripts": {
         "ng": "ng",
         "start-server": "nodemon index.js",
-        "start" : "npm run start-server && npm run serve",
+        "start": "npm run start-server && npm run serve",
         "dev": "npm run build-dev && npm run start-dev",
         "serve-web-driver": "ng serve web-driver --proxy-config proxy.conf.json",
         "build": "ng build",
@@ -35,6 +35,7 @@
         "mongoose": "^8.3.4",
         "path": "^0.12.7",
         "rxjs": "^7.8.1",
+        "socket.io": "^4.7.5",
         "tslib": "^2.6.2",
         "zone.js": "^0.14.5"
     },
