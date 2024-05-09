@@ -7,6 +7,11 @@ module.exports = {
         index: true,
         auto: true,
     },
+    package_id : {
+        type: ObjectId,
+        ref: 'Package',
+        required: true
+    },
     pickup_time : {type : Date},
     start_time  : {type : Date},
     end_time : {type : Date,},
