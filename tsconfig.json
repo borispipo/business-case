@@ -27,6 +27,9 @@
       "$wd/*" : [
         "web-driver/app/*"
       ],
+      "$wdcomponents/*" : [
+        "web-driver/components*"
+      ],
       "$wdutils/*" : [
         "web-driver/utils/*"
       ],
@@ -40,6 +43,9 @@
       "$wt/*" : [
         "web-tracker/app/*"
       ],
+      "$wtcomponents/*" : [
+        "web-tracker/components*"
+      ],
       "$wtutils/*" : [
         "web-tracker/utils/*"
       ],
@@ -52,6 +58,9 @@
       ],
       "$wa/*" : [
         "web-admin/app/*"
+      ],
+      "$wacomponents/*" : [
+        "web-admin/components*"
       ],
       "$wautils/*" : [
         "web-admin/utils/*"
@@ -83,6 +92,12 @@
   "exclude": [
     "node_modules",
     "dist",
-    "public"
-  ]
+    "public",
+    "test.ts",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "**/*.d.ts"
+  ],
+  "files" : ["main.ts"]
 }

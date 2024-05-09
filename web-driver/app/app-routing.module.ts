@@ -2,15 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from '$wd/app.component';
 
-const routes: Routes = [
-  {
-    path: 'web-driver',
-    component: AppComponent,
-    children: [
-      
-    ]
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {})],
