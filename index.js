@@ -64,16 +64,17 @@ db.on("disconnected", function () {
 app.use(express.static(__dirname + '/public/web-driver'));
 //app.use(express.static(__dirname + '/public/web-tracker'));
 
-app.get('/web-driver', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/web-driver/index.html'))
-});
-app.get('/web-tracker', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/web-tracker/index.html'))
-});
-app.get('/web-admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/web-admin/index.html'))
-});
-
+if(String(process.env).toLowerCase() ==="production"){
+  app.get('/web-driver', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/web-driver/index.html'))
+  });
+  app.get('/web-tracker', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/web-tracker/index.html'))
+  });
+  app.get('/web-admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/web-admin/index.html'))
+  });
+}
 // any route starting with '/api' will be interfacing our API
 app.use('/api', router);
 
