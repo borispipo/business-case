@@ -44,6 +44,19 @@
         "web-tracker/utils/*"
       ],
       
+      /*
+        web admin modules
+      **/
+      "$wadmin/*": [
+        "web-admin/*"
+      ],
+      "$wa/*" : [
+        "web-admin/app/*"
+      ],
+      "$wautils/*" : [
+        "web-admin/utils/*"
+      ],
+      
       /**
         shared and common modules paths
       **/
