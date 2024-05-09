@@ -59,7 +59,9 @@ db.on("disconnected", function () {
 });
 
 /** SERVE PUBLIC FILES */
-app.use('/', express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/web-driver'));
+app.use(express.static(__dirname + '/public/web-tracker'));
 
 app.get('/web-driver', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/web-driver/index.html'))
