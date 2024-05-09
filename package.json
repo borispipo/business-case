@@ -16,7 +16,10 @@
         "build-tracker": "ng build web-tracker",
         "build-admin": "ng build web-admin",
         "test": "ng test",
-        "lint": "ng lint"
+        "lint": "ng lint",
+        "new-ng-app": " ng generate application web-tracker",
+        "build": "ng build",
+        "watch": "ng build --watch --configuration development"
     },
     "keywords": [
         "Web Tracker",
@@ -26,13 +29,6 @@
     "author": "Boris Fouomene <borisfouomen14@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "@angular/common": "^17.3.7",
-        "@angular/compiler": "^17.3.7",
-        "@angular/core": "^17.3.7",
-        "@angular/forms": "^17.3.7",
-        "@angular/platform-browser": "^17.3.7",
-        "@angular/platform-browser-dynamic": "^17.3.7",
-        "@angular/router": "^17.3.7",
         "body-parser": "^1.20.2",
         "codelyzer": "^6.0.2",
         "express": "^4.19.2",
@@ -41,18 +37,33 @@
         "rxjs": "^7.8.1",
         "socket.io": "^4.7.5",
         "tslib": "^2.6.2",
-        "zone.js": "^0.14.5"
+        "zone.js": "^0.14.5",
+        "@angular/animations": "^17.3.0",
+        "@angular/common": "^17.3.0",
+        "@angular/compiler": "^17.3.0",
+        "@angular/core": "^17.3.0",
+        "@angular/forms": "^17.3.0",
+        "@angular/platform-browser": "^17.3.0",
+        "@angular/platform-browser-dynamic": "^17.3.0",
+        "@angular/router": "^17.3.0"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "^17.3.6",
-        "@angular/compiler-cli": "^17.3.7",
-        "@angular/language-service": "^17.3.7",
+      "@angular-devkit/build-angular": "^17.3.7",
         "@types/jest": "^29.5.12",
         "@types/node": "^20.12.10",
         "dotenv": "^16.4.5",
         "nodemon": "^3.1.0",
         "ts-node": "^10.9.2",
         "tslint": "^6.1.3",
-        "typescript": "^5.4.5"
+        "typescript": "^5.4.5",
+        "@angular/cli": "^17.3.7",
+        "@angular/compiler-cli": "^17.3.0",
+        "@types/jasmine": "~5.1.0",
+        "jasmine-core": "~5.1.0",
+        "karma": "~6.4.0",
+        "karma-chrome-launcher": "~3.2.0",
+        "karma-coverage": "~2.2.0",
+        "karma-jasmine": "~5.1.0",
+        "karma-jasmine-html-reporter": "~2.1.0"
     }
 }

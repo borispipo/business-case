@@ -21,51 +21,57 @@
     "useDefineForClassFields": false,
     "paths": {
       /** web drivers paths*/
-      "$wdriver/*": [
+      "$driver/*": [
         "client/web-driver/*"
       ],
-      "$wd/*" : [
-        "client/web-driver/app/*"
+      "$dsrc/*" : [
+        "client/web-driver/src/*"
       ],
-      "$wdcomponents/*" : [
-        "client/web-driver/components*"
+      "$dapp/*" : [
+        "client/web-driver/src/app/*"
       ],
-      "$wdutils/*" : [
-        "client/web-driver/utils/*"
+      "$dcomponents/*" : [
+        "client/web-driver/src/components*"
+      ],
+      "$dutils/*" : [
+        "client/web-driver/src/utils/*"
       ],
       
       /**
         web tacker paths
       */
-      "$wtracker/*": [
+      "$tracker/*": [
         "client/web-tracker/*"
       ],
-      "$wt/*" : [
-        "client/web-tracker/app/*"
+      "$tapp/*" : [
+        "client/web-tracker/src/app/*"
       ],
-      "$wtcomponents/*" : [
-        "client/web-tracker/components*"
+      "$tcomponents/*" : [
+        "client/web-tracker/src/components/*"
       ],
-      "$wtutils/*" : [
-        "client/web-tracker/utils/*"
+      "$tutils/*" : [
+        "client/web-tracker/src/utils/*"
       ],
       
       /*
         web admin modules
       **/
-      "$wadmin/*": [
-        "client/web-tracker/*"
+      "$admin/*": [
+        "client/web-admin/*"
       ],
-      "$wa/*" : [
-        "client/web-tracker/app/*"
+      "$aapp/*" : [
+        "client/web-admin/src/app/*"
       ],
-      "$wacomponents/*" : [
-        "client/web-tracker/components*"
+      "$acomponents/*" : [
+        "client/web-admin/src/components/*"
       ],
-      "$wautils/*" : [
-        "client/web-tracker/utils/*"
+      "$autils/*" : [
+        "client/web-admin/src/utils/*"
       ],
       
+      "$environment" : [
+        "client/common/environments/environment"
+      ],
       /**
         shared and common modules paths
       **/
@@ -73,15 +79,15 @@
         "client/common/*"
       ],
       "$utils/*" : [
-        "client/common/utils*"
+        "client/common/utils/*"
       ],
       
       /**public paths*/
-      "$public/*" : [
-        "public/*"
+      "$dist/*" : [
+        "dist/*"
       ],
       "$assets/*" : [
-        "public/assets/*"
+        "dist/assets/*"
       ]
     }
   },
@@ -97,7 +103,7 @@
     "**/*.spec.ts"
   ],
   "include": [
-    "**/*.d.ts"
+    "*.d.ts",
+    "client/**/*",
   ],
-  "files" : ["main.ts"]
 }

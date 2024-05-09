@@ -60,19 +60,17 @@ db.on("disconnected", function () {
 });
 
 /** SERVE PUBLIC FILES */
-//app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/public/web-driver'));
-//app.use(express.static(__dirname + '/public/web-tracker'));
+app.use(express.static(__dirname + '/dist/web-driver'));
 
 if(String(process.env).toLowerCase() ==="production"){
   app.get('/web-driver', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/web-driver/index.html'))
+    res.sendFile(path.join(__dirname, 'dist/web-driver/index.html'));
   });
   app.get('/web-tracker', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/web-tracker/index.html'))
+    res.sendFile(path.join(__dirname, 'dist/web-tracker/index.html'));
   });
   app.get('/web-admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/web-admin/index.html'))
+    res.sendFile(path.join(__dirname, 'dist/web-admin/index.html'));
   });
 }
 // any route starting with '/api' will be interfacing our API
