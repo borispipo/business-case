@@ -16,7 +16,7 @@
               "outputPath": "public/web-driver",
               "index": "web-driver/index.html",
               "main": "web-driver/main.ts",
-              "polyfills": "web-driver/polyfills.ts",
+              "polyfills": "client/polyfills.ts",
               "tsConfig": "web-driver/tsconfig.json",
               "assets": [
                 "web-driver/favicon.ico",
