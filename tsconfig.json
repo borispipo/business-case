@@ -82,6 +82,8 @@
         "client/common/utils/*"
       ],
       
+      "$fetch" : ["client/common/fetch/index.ts"],
+      
       /**public paths*/
       "$dist/*" : [
         "dist/*"
