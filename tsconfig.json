@@ -81,6 +81,7 @@
       "$utils/*" : [
         "client/common/utils/*"
       ],
+      "$ctypes/*" : ["client/common/types/*"],
       
       "$fetch" : ["client/common/fetch/index.ts"],
       
