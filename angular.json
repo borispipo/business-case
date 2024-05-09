@@ -17,7 +17,7 @@
               "index": "web-driver/index.html",
               "main": "web-driver/main.ts",
               "polyfills": "web-driver/polyfills.ts",
-              "tsConfig": "web-driver-tsconfig.json",
+              "tsConfig": "web-driver/tsconfig.json",
               "assets": [
                 "web-driver/favicon.ico",
                 "web-driver/assets"

@@ -18,10 +18,58 @@
       "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      /** web drivers paths*/
+      "$wdriver/*": [
+        "web-driver/*"
+      ],
+      "$wd/*" : [
+        "web-driver/app/*"
+      ],
+      "$wdutils/*" : [
+        "web-driver/utils/*"
+      ],
+      
+      /**
+        web tacker paths
+      */
+      "$wtracker/*": [
+        "web-tracker/*"
+      ],
+      "$wt/*" : [
+        "web-tracker/app/*"
+      ],
+      "$wtutils/*" : [
+        "web-tracker/utils/*"
+      ],
+      
+      /**
+        shared and common modules paths
+      **/
+      "$client/*" : [
+        "client/*"
+      ],
+      "$utils/*" : [
+        "client/utils*"
+      ],
+      
+      /**public paths*/
+      "$public/*" : [
+        "public/*"
+      ],
+      "$assets/*" : [
+        "public/assets/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public"
+  ]
 }
