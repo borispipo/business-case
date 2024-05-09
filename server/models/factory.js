@@ -6,9 +6,17 @@ const ObjectId = mongoose.Types.ObjectId;
     @param {string} schemaName, le nom du schema mongoose
     @param {mongoose.Schema}, le schema mongoose
     @param {string} primaryKey, le nom de la clé primaire du model
+    @param {boolean} deleteId, spécifie si le champ _id sera supprimé des données sauvegardées
     @retun {instance of MongooseModel}
 */
-module.exports = function(schemaName,Schema,primaryKey){
+module.exports = function(schemaName,Schema,primaryKey, deleteId){
+    if(deleteId !== false){
+        Schema.set('toJSON', {
+            virtuals: true,
+            versionKey:false,
+            transform: function (doc, ret) {delete ret._id;delete ret.__v; }
+        });
+    }
     const Model = mongoose.model(schemaName,Schema);
     /****@see : https://mongoosejs.com/docs/api/model.html#Model.updateOne() */
     /****
