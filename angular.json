@@ -82,6 +82,87 @@
             }
           }
         }
+      },
+      "web-tracker": {
+        "projectType": "application",
+        "schematics": {},
+        "root": "",
+        "sourceRoot": "client/web-tracker",
+        "prefix": "web-tracker",
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-angular:browser",
+            "options": {
+              "outputPath": "public/web-tracker",
+              "index": "client/web-tracker/index.html",
+              "main": "client/web-tracker/main.ts",
+              "polyfills": "client/common/polyfills.ts",
+              "tsConfig": "client/web-tracker/tsconfig.json",
+              "assets": [
+                "client/web-tracker/favicon.ico",
+                "client/web-tracker/assets"
+              ],
+              "styles": [
+                "client/web-tracker/styles.css"
+              ],
+              "scripts": [],
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true,
+              "deployUrl": "./"
+            },
+            "configurations": {
+              "production": {
+                "fileReplacements": [
+                  {
+                    "replace": "client/web-tracker/environments/environment.ts",
+                    "with": "client/web-tracker/environments/environment.prod.ts"
+                  }
+                ],
+                "optimization": true,
+                "outputHashing": "all",
+                "sourceMap": false,
+                "namedChunks": false,
+                "extractLicenses": true,
+                "vendorChunk": false,
+                "buildOptimizer": true,
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "2mb",
+                    "maximumError": "5mb"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "6kb",
+                    "maximumError": "10kb"
+                  }
+                ]
+              }
+            },
+            "defaultConfiguration": ""
+          },
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "options": {
+              "buildTarget": "web-tracker:build"
+            },
+            "configurations": {
+              "production": {
+                "buildTarget": "web-tracker:build:production"
+              }
+            }
+          },
+          "extract-i18n": {
+            "builder": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+              "buildTarget": "web-tracker:build"
+            }
+          }
+        }
       }
     },
     "cli": {
