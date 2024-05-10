@@ -83,6 +83,7 @@
       ],
       "$stypes/*" : ["client/shared/types/*"],
       "$scomponents/*" : ["client/shared/components/*"],
+      "$socket/*" : ["client/shared/socket/*"],
       
       "$fetch" : ["client/shared/fetch/index.ts"],
       
