@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import Delivery from '$ctypes/Delivery';
-import Package from "$ctypes/Package";
+import Delivery from '$stypes/Delivery';
+import Package from "$stypes/Package";
 import { getPackage } from '$fetch';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';

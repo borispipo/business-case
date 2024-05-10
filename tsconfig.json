@@ -70,20 +70,20 @@
       ],
       
       "$environment" : [
-        "client/common/environments/environment"
+        "client/shared/environments/environment"
       ],
       /**
-        shared and common modules paths
+        shared modules paths
       **/
-      "$common/*" : [
-        "client/common/*"
+      "$shared/*" : [
+        "client/shared/*"
       ],
       "$utils/*" : [
-        "client/common/utils/*"
+        "client/shared/utils/*"
       ],
-      "$ctypes/*" : ["client/common/types/*"],
+      "$stypes/*" : ["client/shared/types/*"],
       
-      "$fetch" : ["client/common/fetch/index.ts"],
+      "$fetch" : ["client/shared/fetch/index.ts"],
       
       /**public paths*/
       "$dist/*" : [
