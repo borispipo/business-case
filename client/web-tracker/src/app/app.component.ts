@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MainComponent } from '$scomponents/main/main.component';
 import Delivery from '$stypes/Delivery';
 import Package from "$stypes/Package";
 import { getPackage } from '$fetch';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';  
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
+import { ListDetailsComponent } from '$shared/components/list-detail/details.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,MatSlideToggleModule,MatButtonModule,MatInputModule,MatProgressSpinnerModule,CommonModule,MatProgressBarModule
-    ,MatDividerModule,MatListModule
+    CommonModule,MainComponent,MatButtonModule,MatInputModule,MatProgressSpinnerModule,MatProgressBarModule
+    ,MatDividerModule,MatListModule,ListDetailsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

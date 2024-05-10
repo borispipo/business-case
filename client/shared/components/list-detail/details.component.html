@@ -1,0 +1,10 @@
+<div class="flex list-detail-container {{containerClass}}">
+    <span class="pr-1 list-detail-label">
+        {{(label || '')+ " : "}}
+    </span>
+    <span class="list-detail-value">
+        {{text}}
+    </span>
+    <ng-content #name></ng-content>
+    <mat-divider *ngIf="divider !== false"/>
+</div>

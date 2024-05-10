@@ -1,12 +1,12 @@
 
-<main class="main">
+<app-main class="main">
   <div class="main-content container">
     <h2 class="m-2 text-center w100">
         Web Tracker
     </h2>
     <div class="main-header">
         <div class="flex">
-            <input placeholder="Enter Package ID" class="pl-1 " [value]="packageId" (input)="onSearchChange($event.target.value)"/>
+            <input class="track-package-input" placeholder="Enter Package ID" [value]="packageId" (input)="onSearchChange($event.target.value)"/>
             <button mat-flat-button class="ml-2" [disabled] = "isLoading" color="primary" (click)="trackPackage()">Track</button>
         </div>
         <div class="mt-1" *ngIf="isLoading">
@@ -21,47 +21,13 @@
           <div class="p-1">
             <h4 class="title">Package Details</h4>
             <mat-divider/>
-            <mat-list role="list">
-              <mat-list-item role="listitem">
-                <span class="pr-1">Description : </span>
-                <span>{{package.description}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">Weight : </span>
-                <span>{{package.weight}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">Height : </span>
-                <span>{{package.height}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">Depth : </span>
-                <span>{{package.depth}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">From Name : </span>
-                <span>{{package.from_name || ''}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">From addres : </span>
-                <span>{{package.from_address || ""}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">To Name : </span>
-                <span>{{package.to_name || ''}}</span>
-              </mat-list-item>
-              
-              <mat-list-item role="listitem">
-                <span class="pr-1">To Address : </span>
-                <span>{{package.to_address || ""}}</span>
-              </mat-list-item>
-            </mat-list>
+            <list-detail label="Description" value={{package.description}}></list-detail>
+            <list-detail label="Weight" value = {{package.weight}}/>
+            <list-detail label="Height" value = {{package.height}}/>
+            <list-detail label="Depth" value = {{package.depth}}/>
+            <list-detail label="From addres" value = {{package.from_address}}/>
+            <list-detail label="To Name" value = {{package.to_name}}/>
+            <list-detail label="To Address" value = {{package.to_address}}/>
           </div>
           <div class="p-1">
             
@@ -69,7 +35,4 @@
       </div>
     </div>
   </div>
-</main>
-
-
-<router-outlet />
+</app-main>

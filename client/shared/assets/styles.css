@@ -1342,3 +1342,13 @@ body {
       padding-bottom: 3rem !important;
     }
   }
+  
+  .list-detail-label {
+    font-size: 1rem;
+  }
+  
+  .list-detail-value {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color : rgb(5, 51, 5);
+  }
