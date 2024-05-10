@@ -1,7 +1,7 @@
 
 <app-main class="main">
   <div class="main-content container">
-    <h2 class="m-2 text-center w100">
+    <h2 class="m-2 text-center w100 app-title">
         Web Tracker
     </h2>
     <div class="main-header">
@@ -12,25 +12,36 @@
         <div class="mt-1" *ngIf="isLoading">
           <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
         </div>
-        <div *ngIf = "trackPackageError" class="w100 text-center pt-2 pb-2 text-error">
+        <div *ngIf = "trackPackageError && false" class="w100 text-center pt-2 pb-2 text-error">
             {{trackPackageError}}
         </div>
     </div>
     <div class="w100">
-      <div *ngIf = "package" class="flex justify-space-between">
-          <div class="p-1">
-            <h4 class="title">Package Details</h4>
+      <div class="package-container">
+          <div class="p-1 mt-2">
+            <div class="title">Package Details</div>
             <mat-divider/>
-            <list-detail label="Description" value={{package.description}}></list-detail>
-            <list-detail label="Weight" value = {{package.weight}}/>
-            <list-detail label="Height" value = {{package.height}}/>
-            <list-detail label="Depth" value = {{package.depth}}/>
-            <list-detail label="From addres" value = {{package.from_address}}/>
-            <list-detail label="To Name" value = {{package.to_name}}/>
-            <list-detail label="To Address" value = {{package.to_address}}/>
+            <div *ngIf = "package" class="package-details">
+              <list-detail label="Description" value={{package.description}}></list-detail>
+              <list-detail label="Weight" value = {{package.weight}}/>
+              <list-detail label="Height" value = {{package.height}}/>
+              <list-detail label="Depth" value = {{package.depth}}/>
+              <list-detail label="From addres" value = {{package.from_address}}/>
+              <list-detail label="To Name" value = {{package.to_name}}/>
+              <list-detail label="To Address" value = {{package.to_address}}/>
+            </div>
+            <div *ngIf="!package" class="p-1">
+              <p class="not-found-text">Not package Found with Id [{{packageId || ''}}] </p>
+            </div>
           </div>
-          <div class="p-1">
-            
+          <div class="p-1 mt-2">
+            <div class="w100">
+              <mat-divider/>
+              <div class="title">Delivery Details</div>
+            </div>
+            <div *ngIf="!delivery" class="p-1 not-found-text">
+              <p class="not-found-text">Not active deliveries associated with the package Id [{{packageId || ''}}] </p>
+            </div>
           </div>
       </div>
     </div>

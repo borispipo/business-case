@@ -2,7 +2,12 @@ import env from "$environment";
 import Delivery from "$stypes/Delivery";
 import Package from "$stypes/Package";
 
-export const API_HOST = `${env.API_HOST && env.API_HOST.trim().replace(/\\+$/, '') || ""}`
+export function getLocalHost() : string{
+    const port = window.location.port;
+    return window.location.protocol + '//' + window.location.hostname+(port?(":"+port):"");
+}
+
+export const API_HOST : string = (env.API_HOST && env.API_HOST.trim() || getLocalHost()).replace(/\\+$/, '');
 
 export function unfetch<T>(path, options):Promise<T>{
     return fetch(`${API_HOST}/api/${path.replace(/\\+$/, '')}`,options).then((res=>res.json())) as Promise<T>;

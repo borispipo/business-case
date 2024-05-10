@@ -1,5 +1,9 @@
 /**/
-
+.app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color : rgb(4, 45, 4);
+}
 .flex {
     display : flex;
     justify-content: "flex-start";
@@ -29,10 +33,16 @@
 .w100 {
     width: 100%;
 }
-
-
+.text-danger {
+  color : rgb(59, 2, 2);
+}
+.not-found-text {
+  color : rgb(96, 6, 6);
+  font-size: 1rem;
+  text-wrap: wrap;
+}
 .text-error {
-  color : red;
+  color : rgb(59, 2, 2);
   font-size: 13;
 }
 
