@@ -1,6 +1,6 @@
 import env from "$environment";
-import Delivery from "$ctypes/Delivery";
-import Package from "$ctypes/Package";
+import Delivery from "$stypes/Delivery";
+import Package from "$stypes/Package";
 
 export const API_HOST = `${env.API_HOST && env.API_HOST.trim().replace(/\\+$/, '') || ""}`
 
