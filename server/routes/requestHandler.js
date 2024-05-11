@@ -90,9 +90,13 @@ module.exports = {
         handle de la requête POST, qui crère un nouveau document via le model passé en paramètre
         @param {Object} Model, le model crée à l'aide de la méthode factory de /models/factory
     */
-    delete : (Model)=>{
+    delete : (Model,options)=>{
         return async (req,res)=>{
+            options = Object.assign({},options);
             try {
+                if(typeof options.beforeRemove =="function"){
+                    await options.beforeRemove(req,res);
+                }
                 const data = await Model.delete(req.params.id);
                 return res.json(data);
             } catch(e){

@@ -1,0 +1,107 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="w100">
+      <app-package-delivery>
+        <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
+          <mat-form-field class="form-field">
+            <mat-label>Description</mat-label>
+            <input type="text" name="description" matInput [errorStateMatcher]="errorStateMatcher"
+              placeholder="description" [value]="package?.description"
+              formControlName="description"
+              [class.is-invalid]="isFieldValid('description')"  
+              disabled="isLoading"
+            >
+            @if (!isFieldValid('description')) {
+              <mat-error>description is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>From Name</mat-label>
+            <input type="text" name="from_name" matInput [errorStateMatcher]="errorStateMatcher"
+              [value]="package?.from_name"
+              formControlName="from_name"
+              [class.is-invalid]="isFieldValid('from_name')"  
+              disabled="isLoading"
+              >
+            @if (!isFieldValid('from_name')) {
+                <mat-error>From name field is required <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>To Name</mat-label>
+            <input type="text" name="to_name" matInput  [errorStateMatcher]="errorStateMatcher"
+              [value]="package?.to_name"
+                formControlName="to_name"
+                [class.is-invalid]="isFieldValid('to_name')"  
+                disabled="isLoading"
+              >
+              @if (!isFieldValid('from_name')) {
+                  <mat-error>To name field is required <strong>required</strong></mat-error>
+              }
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>From Address</mat-label>
+            <input type="text" name="from_address" matInput  [errorStateMatcher]="errorStateMatcher"
+                [value]="package?.from_address"
+                formControlName="from_address"
+                disabled="isLoading"
+                [class.is-invalid]="isFieldValid('from_address')"  
+            >
+            @if (!isFieldValid('from_address')) {
+                <mat-error>From Address field is required <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>To Address</mat-label>
+            <input type="text" name="to_address" matInput  [errorStateMatcher]="errorStateMatcher"
+              [value]="package?.to_address"
+              formControlName="to_address"
+              disabled="isLoading"
+              [class.is-invalid]="isFieldValid('to_address')"    
+            >
+            @if (!isFieldValid('to_address')) {
+              <mat-error>To Address field is required <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Weight</mat-label>
+            <input type="number" name="weight" matInput [value]="package?.weight"
+              formControlName="weight"
+              disabled="isLoading"
+              [class.is-invalid]="isFieldValid('weight')"  
+            />
+            <span>grams</span>
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>Height</mat-label>
+            <input type="number" name="height" matInput [value]="package?.height"
+              formControlName="height"
+              disabled="isLoading"
+              [class.is-invalid]="isFieldValid('height')"  
+            /><span>cm</span>
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>Depth</mat-label>
+            <input type="number" name="depth" matInput [value]="package?.depth"
+              formControlName="depth"
+              disabled="isLoading"
+              [class.is-invalid]="isFieldValid('depth')"  
+            />
+            <span>cm</span>
+          </mat-form-field>
+         
+        </form>
+      </app-package-delivery>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <mat-progress-spinner *ngIf="isLoading" diameter="20"></mat-progress-spinner>
+  <button [disabled] ="isLoading" mat-button mat-dialog-close>Cancel</button>
+  <button type="submit" (click)="saveForm(formGroup)" mat-button [disabled] ="isLoading || !isFormValid()" >{{isUpdate?"Edit":"Add"}}</button>
+</mat-dialog-actions>

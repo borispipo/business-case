@@ -1,0 +1,10 @@
+<div class="dialog-container-confirm">
+  <h2 mat-dialog-title>{{title || "Confirm Dialog"}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <p>{{message || "No confirm message"}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onOkClick()">Confirm</button>
+  </mat-dialog-actions>
+</div>

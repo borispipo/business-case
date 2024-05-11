@@ -82,6 +82,7 @@
         "client/shared/utils/*"
       ],
       "$stypes/*" : ["client/shared/types/*"],
+      "$stypes" : ["client/shared/types/index"],
       "$scomponents/*" : ["client/shared/components/*"],
       "$socket/*" : ["client/shared/socket/*"],
       

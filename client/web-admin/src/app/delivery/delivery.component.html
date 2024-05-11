@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="w100">
+         <mat-form-field>
+            <mat-label>Input</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <div class="w100"></div>
+          <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="w100"></div>
+          <mat-form-field>
+            <mat-label>Textarea</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button [disabled] ="isLoading" mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [disabled] ="isLoading" [mat-dialog-close]="false" >{{isUpdate?"Edit":"Add"}}</button>
+</mat-dialog-actions>
