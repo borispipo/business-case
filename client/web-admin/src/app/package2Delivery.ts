@@ -37,13 +37,18 @@ export class Package2DeliveryComponent  extends BaseComponent implements ErrorSt
   protected setData(data : T){
     this.data = data;
   }
+  protected beforeUpsert(data){
+  
+  }
   protected isDelivery(){
     return false;
   }
   protected addNew(data:T): Promise<T>{
+     this.beforeUpsert(data);
      return this.isDelivery() ? addDelivery(data) : addPackage(data);
   }
   protected update(data : T) : Promise<any> {
+    this.beforeUpsert(data);
     return this.isUpdate && this.id ? (this.isDelivery() ? updateDelivery(this.id,data) : updatePackage(this.id,data)) : Promise.reject({
         message : `Could not update data, because id ${this.id} is invalid`
     });

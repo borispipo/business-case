@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -10,11 +10,8 @@ import { Package } from '$shared/types';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import {
   FormControl,
-  FormGroupDirective,
-  NgForm,
   Validators,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
 
@@ -28,13 +25,7 @@ import {
   styleUrl: './package.component.css'
 })
 export class PackageComponent extends Package2DeliveryComponent{
-  descriptionControl : FormControl;
-  weightControl : any;
   package : Package = null;
-  fromNameControl : FormControl;
-  toNameControl : FormControl;
-  fromAddressControl : FormControl;
-  toAddressControl : FormControl;
   protected override setData(data : Package){
     this.package = data;
     this.initFormGroup();
