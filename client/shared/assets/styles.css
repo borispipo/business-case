@@ -41,15 +41,28 @@
   font-size: 1rem;
   text-wrap: wrap;
 }
+.disabled  {
+  cursor: not-allowed;
+  pointer-events: none!important;
+}
 .text-error {
   color : rgb(59, 2, 2);
   font-size: 13;
 }
-
+.form-field {
+  width: 100%;
+}
 body {
     background-color: #eff1f3;
 }
-
+.cursor-pointer {
+  cursor: pointer;
+}
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
 .container {
     max-width: 90%;
     margin: auto;

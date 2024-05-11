@@ -10,7 +10,7 @@ module.exports = {
     },
     active_delivery_id : {type: ObjectId},
     description: { type: String},
-    weight : { type: Number,unit : "cm"},
+    weight : { type: Number,unit : "grams"},
     height : { type: Number, unit : "cm"},
     depth : { type: Number, unit : "cm"},
     from_name : {type : String},
