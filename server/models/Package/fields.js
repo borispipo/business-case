@@ -16,13 +16,13 @@ module.exports = {
     from_name : {type : String},
     from_address : {type : String},
     from_location : {
-        lat : { type : String},
-        lng : { type : String},
+        lat : { type : Number},
+        lng : { type : Number},
     },
     to_name : { type : String},
     to_address : {type : String},
     to_location : {
-        lat : { type : String},
-        lng : { type : String},
+        lat : { type : Number},
+        lng : { type : Number},
     }
 };
