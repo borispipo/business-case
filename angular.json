@@ -99,6 +99,101 @@
           }
         }
       }
+    },
+    "web-admin": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "client/web-admin",
+      "sourceRoot": "client/web-admin/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/web-admin",
+            "index": "client/web-admin/src/index.html",
+            "browser": "client/web-admin/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "client/web-admin/tsconfig.app.json",
+            "assets": [
+              "client/web-admin/src/favicon.ico",
+              "client/web-admin/src/assets"
+            ],
+            "styles": [
+              "client/web-admin/src/styles.css",
+              "client/shared/assets/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "client/shared/environments/environment.ts",
+                  "with": "client/shared/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "web-admin:build:production"
+            },
+            "development": {
+              "buildTarget": "web-admin:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "web-admin:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "client/web-admin/tsconfig.spec.json",
+            "assets": [
+              "client/web-admin/src/favicon.ico",
+              "client/web-admin/src/assets"
+            ],
+            "styles": [
+              "client/web-admin/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
