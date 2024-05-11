@@ -1,26 +1,85 @@
 <h2 mat-dialog-title>{{title}}</h2>
 <mat-dialog-content class="mat-typography">
     <div class="w100">
-         <mat-form-field>
-            <mat-label>Input</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <div class="w100"></div>
-          <mat-form-field>
-            <mat-label>Select</mat-label>
-            <mat-select>
-              <mat-option value="one">First option</mat-option>
-              <mat-option value="two">Second option</mat-option>
+      <app-package-delivery>
+        <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
+          <mat-form-field class="form-field">
+            <mat-label>Package Id</mat-label>
+            <mat-select
+              name="package_id" matInput [errorStateMatcher]="errorStateMatcher"
+              formControlName="package_id"
+              [class.is-invalid]="isFieldValid('package_id')"  
+              disabled="isLoading"
+              [value] = "delivery?.package_id"
+            >
+              @for (p of packages; track p) {
+                <mat-option [value]="p.package_id">{{p.description}}, {{p.from_address ||''}} => {{p.to_address||''}}</mat-option>
+              }
             </mat-select>
+            @if (!isFieldValid('package_id')) {
+              <mat-error>package_id is <strong>required</strong></mat-error>
+            }
           </mat-form-field>
-          <div class="w100"></div>
-          <mat-form-field>
-            <mat-label>Textarea</mat-label>
-            <textarea matInput></textarea>
+          <mat-form-field class="form-field">
+            <mat-label>Pickup Time</mat-label>
+            <input type="datetime-local" name="pickup_time" matInput [errorStateMatcher]="errorStateMatcher"
+              [defaultValue]="delivery?.pickup_time"
+              formControlName="pickup_time"
+              [class.is-invalid]="isFieldValid('pickup_time')"  
+              disabled="isLoading"
+              >
+            @if (!isFieldValid('pickup_time')) {
+                <mat-error>Pick up time field is required <strong>required</strong></mat-error>
+            }
           </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>Start Time</mat-label>
+            <input type="datetime-local" name="start_time" matInput  [errorStateMatcher]="errorStateMatcher"
+              [defaultValue]="delivery?.start_time"
+                formControlName="start_time"
+                [class.is-invalid]="isFieldValid('start_time')"  
+                disabled="isLoading"
+              >
+              @if (!isFieldValid('start_time')) {
+                  <mat-error>Start Time field is required <strong>required</strong></mat-error>
+              }
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>End Time</mat-label>
+            <input type="datetime-local" name="end_time" matInput  [errorStateMatcher]="errorStateMatcher"
+                [defaultValue]="delivery?.end_time"
+                formControlName="end_time"
+                disabled="isLoading"
+                [class.is-invalid]="isFieldValid('end_time')"  
+            >
+          </mat-form-field>
+          
+          <mat-form-field class="form-field">
+            <mat-label>Status</mat-label>
+            <mat-select
+              name="status" matInput  [errorStateMatcher]="errorStateMatcher"
+              [value]="delivery?.status"
+              formControlName="status"
+              disabled="isLoading"
+              [class.is-invalid]="isFieldValid('status')"
+            >
+              @for (status of statutes ; track status) {
+                <mat-option [value]="status">{{status}}</mat-option>
+              }
+            </mat-select>
+            @if (!isFieldValid('status')) {
+              <mat-error>Status field is required <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+         
+        </form>
+      </app-package-delivery>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <mat-progress-spinner *ngIf="isLoading" diameter="20"></mat-progress-spinner>
   <button [disabled] ="isLoading" mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [disabled] ="isLoading" [mat-dialog-close]="false" >{{isUpdate?"Edit":"Add"}}</button>
+  <button type="submit" (click)="saveForm(formGroup)" mat-button [disabled] ="isLoading || !isFormValid()" >{{isUpdate?"Edit":"Add"}}</button>
 </mat-dialog-actions>
