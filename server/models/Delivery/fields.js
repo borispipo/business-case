@@ -16,8 +16,8 @@ module.exports = {
     start_time  : {type : Date},
     end_time : {type : Date,},
     location : {
-        lat : { type : String},
-        lng : { type : String},
+        lat : { type : Number},
+        lng : { type : Number},
     },
     status :  {
         type: String,

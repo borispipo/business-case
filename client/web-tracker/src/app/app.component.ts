@@ -11,13 +11,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';  
 import { ListDetailsComponent } from '$shared/components/list-detail/details.component';
+import { MapComponent } from '$shared/components/map/map.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,MainComponent,MatButtonModule,MatInputModule,MatProgressSpinnerModule,MatProgressBarModule
-    ,MatDividerModule,MatListModule,ListDetailsComponent
+    ,MatDividerModule,MatListModule,ListDetailsComponent,MapComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
