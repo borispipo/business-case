@@ -10,6 +10,8 @@ import { Delivery,Package } from '$shared/types';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { getPackages } from '$shared/fetch';
 import { toMySQLDate,toLocaleDateString } from '$shared/utils';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { debounceTime } from "rxjs/operators";
 
 import {
   FormControl,
@@ -22,7 +24,7 @@ import {
   selector: 'app-delivery',
   standalone: true,
   imports: [CommonModule,MatDialogModule,MatButtonModule,MatSelectModule,
-    MatInputModule,MatFormFieldModule,MatSelectModule,Package2DeliveryComponent, ReactiveFormsModule,MatProgressSpinner
+    MatInputModule,MatFormFieldModule,MatSelectModule,Package2DeliveryComponent, ReactiveFormsModule,MatProgressSpinner,MatAutocompleteModule
   ],
   templateUrl: './delivery.component.html',
   styleUrl: './delivery.component.css'
@@ -30,10 +32,30 @@ import {
 export class DeliveryComponent extends Package2DeliveryComponent{
   delivery : Delivery = null;
   packages : Array<Package> = [];
+  readonly packagesFiltersFields : string [] = ["from_name","from_address","to_name","to_address","package_id"]; 
+  readonly packagesFiltersFieldsText : string = this.packagesFiltersFields.join(", ");
+  filteredPackages : Array<Package> = [];
+  packageFilterText : string = "";
   readonly statutes : string [] = ['open','picked-up','in-transit','delivered','failed'];
+  
+  
+  doFilterPackages(){
+    if(!this.packageFilterText){
+      this.filteredPackages = this.packages;
+      return;
+    }  
+    const text = String(this.packageFilterText).toLowerCase();
+    this.filteredPackages = this.packages.filter((p)=>{
+      for(let i in this.packagesFiltersFields){
+        if(String(p[this.packagesFiltersFields[i]]).toLowerCase().includes(text)) return true;
+      }
+      return false;
+    });
+  }
   fetchPackages(){
     getPackages().then((packages)=>{
       this.packages = packages;
+      this.doFilterPackages();
     });
   }
   override beforeUpsert(data){
@@ -57,13 +79,20 @@ export class DeliveryComponent extends Package2DeliveryComponent{
     this.initFormGroup();
   }
   initFormGroup(){
+    const packageIdFormControl : FormControl = new FormControl(this.delivery?.package_id || '', [Validators.required]);
     this.formGroup = new FormGroup({
-      package_id : new FormControl(this.delivery?.package_id || '', [Validators.required]),
+      package_id : packageIdFormControl,
       pickup_time : new FormControl(toLocaleDateString(this.delivery?.pickup_time), [Validators.required]),
       start_time : new FormControl(toLocaleDateString(this.delivery?.start_time), [Validators.required]),
       status : new FormControl(this.delivery?.status || 'open', [Validators.required]),
       end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[])
     })
+    packageIdFormControl.valueChanges
+    .pipe(debounceTime(400)) //après chaque 0.4 seconde, on fera une requête afin de filtrer les données 
+    .subscribe(value=>{
+      this.packageFilterText = value;
+      this.doFilterPackages();
+    });
   }
 }
 
