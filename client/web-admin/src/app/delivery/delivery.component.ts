@@ -9,6 +9,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { Delivery,Package } from '$shared/types';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { getPackages } from '$shared/fetch';
+import { toMySQLDate,toLocaleDateString } from '$shared/utils';
+
 import {
   FormControl,
   Validators,
@@ -34,6 +36,14 @@ export class DeliveryComponent extends Package2DeliveryComponent{
       this.packages = packages;
     });
   }
+  override beforeUpsert(data){
+      [ "pickup_time","start_time","end_time"].map(d=>{
+        if(data[d]){
+          data[d] = toMySQLDate(data[d]);
+        }
+      });
+      return data;
+  }
   ngOnInit(): void {
       super.ngOnInit();
       this.initFormGroup();
@@ -49,32 +59,11 @@ export class DeliveryComponent extends Package2DeliveryComponent{
   initFormGroup(){
     this.formGroup = new FormGroup({
       package_id : new FormControl(this.delivery?.package_id || '', [Validators.required]),
-      pickup_time : new FormControl(toDateString(this.delivery?.pickup_time), [Validators.required]),
-      start_time : new FormControl(toDateString(this.delivery?.start_time), [Validators.required]),
+      pickup_time : new FormControl(toLocaleDateString(this.delivery?.pickup_time), [Validators.required]),
+      start_time : new FormControl(toLocaleDateString(this.delivery?.start_time), [Validators.required]),
       status : new FormControl(this.delivery?.status || 'open', [Validators.required]),
-      end_time : new FormControl(toDateString(this?.delivery?.end_time),[])
+      end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[])
     })
   }
 }
 
-
-const toMysqlFormat = function(date) {
-  if(!date) return undefined;
-  date = new Date(date);
-  return date.getUTCFullYear() + "-" + twoDigits(1 + date.getUTCMonth()) + "-" + twoDigits(date.getUTCDate()) + " " + twoDigits(date.getUTCHours()) + ":" + twoDigits(date.getUTCMinutes()) + ":" + twoDigits(date.getUTCSeconds());
-};
-
-const toDateString = (date)=>{
-  if(!date) return undefined;
-  date = new Date(date).toISOString();
-  return date.substring(0, date.length - 1)
-}
-
-/**
- * You first need to create a formatting function to pad numbers to two digits…
- **/
-function twoDigits(d) {
-  if(0 <= d && d < 10) return "0" + d.toString();
-  if(-10 < d && d < 0) return "-0" + (-1*d).toString();
-  return d.toString();
-}

@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Input } from '@angular/core';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ConfirmDialog } from '$shared/types';
+import { dateToDefaultFormat } from '$shared/utils';
 
 @Component({
     selector: 'app-base',
@@ -32,6 +33,12 @@ export default abstract class BaseComponent implements OnInit{
         conf.componentInstance.onCancel = options.onCancel;
         conf.componentInstance.title = options.title;
         return conf;
+    }
+    /***
+        format l'objet date au format par défaut
+    */
+    dateToDefaultFormat(date : string | Date) : string {
+        return dateToDefaultFormat(date);
     }
     ngOnInit(): void {}
 }

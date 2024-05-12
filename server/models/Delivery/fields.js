@@ -14,7 +14,7 @@ module.exports = {
     },
     pickup_time : {type : Date},
     start_time  : {type : Date},
-    end_time : {type : Date,},
+    end_time : {type : Date},
     location : {
         lat : { type : Number},
         lng : { type : Number},
