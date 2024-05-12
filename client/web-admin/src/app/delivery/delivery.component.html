@@ -5,17 +5,24 @@
         <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
           <mat-form-field class="form-field">
             <mat-label>Package Id</mat-label>
-            <mat-select
+            <input type="text"
+              placeholder="Select Package Id"
+              matInput
               name="package_id" matInput [errorStateMatcher]="errorStateMatcher"
               formControlName="package_id"
               [class.is-invalid]="isFieldValid('package_id')"  
-              disabled="isLoading"
+              [matAutocomplete]="auto"
               [value] = "delivery?.package_id"
+              title = 'You can filter values with one of the fields : {{packagesFiltersFieldsText}}'
+           />
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              disabled="isLoading"
             >
-              @for (p of packages; track p) {
-                <mat-option [value]="p.package_id">{{p.description}}, {{p.from_address ||''}} => {{p.to_address||''}}</mat-option>
+              @for (p of filteredPackages; track p) {
+                <mat-option [value]="p.package_id">[{{p.package_id}}] {{p.description}}, {{p.from_address ||''}} => {{p.to_address||''}} </mat-option>
               }
-            </mat-select>
+            </mat-autocomplete>
             @if (!isFieldValid('package_id')) {
               <mat-error>package_id is <strong>required</strong></mat-error>
             }
