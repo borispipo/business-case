@@ -52,9 +52,14 @@ module.exports = {
         handle de la requête POST, qui crère un nouveau document via le model passé en paramètre
         @param {Object} Model, le model crée à l'aide de la méthode factory de /models/factory
     */
-    post : (Model)=>{
+    post : (Model,options)=>{
         return async (req,res)=>{
+            options = Object.assign({},options);
+            const {beforeInsert} = options;
             try {
+                if(typeof beforeInsert ==='function'){
+                    await beforeInsert(Object.assign({},req.body),req,res);
+                }
                 const id = new ObjectId();
                 await Model.upsert({[Model.primaryKey]:id},req.body);
                 const data = await Model.getOne(id);
@@ -69,14 +74,18 @@ module.exports = {
         handle de la requête PUT, qui modifie un document via le model passé en paramètre
         @param {Object} Model, le model crée à l'aide de la méthode factory de /models/factory
     */
-    put : (Model)=>{
+    put : (Model,options)=>{
         return async (req,res)=>{
             try {
                 const primaryKeyValue = req.params.id;
                 if((!primaryKeyValue || typeof primaryKeyValue != "string") && !(primaryKeyValue instanceof ObjectId)){
                     throw {message : "Impossible de mettre à jour le document, Merci de spécifier une valeur de l'id valide"};
                 }
+                options = Object.assign({},options);
                 const toUpdate = Object.assign({},req.body);
+                if(typeof options.beforeUpdate =="function"){
+                    await options.beforeUpdate(toUpdate,req,res);
+                }
                 delete toUpdate[Model.primaryKey];
                 const data = await Model.upsert({[Model.primaryKey]:primaryKeyValue},toUpdate,{runValidators:true}).exec();
                 return res.json(data);

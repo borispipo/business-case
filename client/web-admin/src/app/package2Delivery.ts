@@ -38,7 +38,7 @@ export class Package2DeliveryComponent  extends BaseComponent implements ErrorSt
     this.data = data;
   }
   protected beforeUpsert(data){
-  
+    return data;
   }
   protected isDelivery(){
     return false;
