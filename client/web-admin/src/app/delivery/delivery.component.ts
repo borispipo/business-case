@@ -32,7 +32,7 @@ import {
 export class DeliveryComponent extends Package2DeliveryComponent{
   delivery : Delivery = null;
   packages : Array<Package> = [];
-  readonly packagesFiltersFields : string [] = ["from_name","from_address","to_name","to_address","package_id"]; 
+  readonly packagesFiltersFields : string [] = ["description","from_name","from_address","to_name","to_address","package_id"]; 
   readonly packagesFiltersFieldsText : string = this.packagesFiltersFields.join(", ");
   filteredPackages : Array<Package> = [];
   packageFilterText : string = "";
@@ -88,7 +88,7 @@ export class DeliveryComponent extends Package2DeliveryComponent{
       end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[])
     })
     packageIdFormControl.valueChanges
-    .pipe(debounceTime(400)) //après chaque 0.4 seconde, on fera une requête afin de filtrer les données 
+    .pipe(debounceTime(300)) //après chaque 0.3 seconde, on fera une requête afin de filtrer les données 
     .subscribe(value=>{
       this.packageFilterText = value;
       this.doFilterPackages();

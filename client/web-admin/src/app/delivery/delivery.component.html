@@ -3,7 +3,7 @@
     <div class="w100">
       <app-package-delivery>
         <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
-          <mat-form-field class="form-field">
+          <mat-form-field class="form-field" class="{{isUpdate?'disabled':''}}">
             <mat-label>Package Id</mat-label>
             <input type="text"
               placeholder="Select Package Id"
@@ -12,15 +12,19 @@
               formControlName="package_id"
               [class.is-invalid]="isFieldValid('package_id')"  
               [matAutocomplete]="auto"
+              readonly="{{isUpdate?true:false}}"
               [value] = "delivery?.package_id"
               title = 'You can filter values with one of the fields : {{packagesFiltersFieldsText}}'
            />
             <mat-autocomplete
               #auto="matAutocomplete"
               disabled="isLoading"
+              class="{{isUpdate?'disabled':''}}"
             >
-              @for (p of filteredPackages; track p) {
-                <mat-option [value]="p.package_id">[{{p.package_id}}] {{p.description}}, {{p.from_address ||''}} => {{p.to_address||''}} </mat-option>
+              @if (!isUpdate) {
+                @for (p of filteredPackages; track p) {
+                  <mat-option  [value]="p.package_id">{{p.description}}, {{p.from_address ||''}} => {{p.to_address||''}} [{{p.package_id}}] </mat-option>
+                }
               }
             </mat-autocomplete>
             @if (!isFieldValid('package_id')) {
