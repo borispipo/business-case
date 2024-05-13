@@ -12,6 +12,8 @@ import { getPackages } from '$shared/fetch';
 import { toMySQLDate,toLocaleDateString } from '$shared/utils';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { debounceTime } from "rxjs/operators";
+import {Location,PlaceChangeResult} from "$stypes";
+import { MapLocationComponent } from '$shared/components/map/location/location.component';
 
 import {
   FormControl,
@@ -23,7 +25,7 @@ import {
 @Component({
   selector: 'app-delivery',
   standalone: true,
-  imports: [CommonModule,MatDialogModule,MatButtonModule,MatSelectModule,
+  imports: [CommonModule,MatDialogModule,MatButtonModule,MatSelectModule,MapLocationComponent,
     MatInputModule,MatFormFieldModule,MatSelectModule,Package2DeliveryComponent, ReactiveFormsModule,MatProgressSpinner,MatAutocompleteModule
   ],
   templateUrl: './delivery.component.html',
@@ -32,13 +34,16 @@ import {
 export class DeliveryComponent extends Package2DeliveryComponent{
   delivery : Delivery = null;
   packages : Array<Package> = [];
+  location : Location = null;
   readonly packagesFiltersFields : string [] = ["description","from_name","from_address","to_name","to_address","package_id"]; 
   readonly packagesFiltersFieldsText : string = this.packagesFiltersFields.join(", ");
   filteredPackages : Array<Package> = [];
   packageFilterText : string = "";
   readonly statutes : string [] = ['open','picked-up','in-transit','delivered','failed'];
   
-  
+  onLocationPlaceChange (r:PlaceChangeResult) : void {
+      this.location = r.location;
+  }
   doFilterPackages(){
     if(!this.packageFilterText){
       this.filteredPackages = this.packages;
@@ -58,7 +63,8 @@ export class DeliveryComponent extends Package2DeliveryComponent{
       this.doFilterPackages();
     });
   }
-  override beforeUpsert(data){
+  override beforeUpsert(data : Delivery){
+      data.location = this.location;
       [ "pickup_time","start_time","end_time"].map(d=>{
         if(data[d]){
           data[d] = toMySQLDate(data[d]);
@@ -66,8 +72,10 @@ export class DeliveryComponent extends Package2DeliveryComponent{
       });
       return data;
   }
+  
   ngOnInit(): void {
       super.ngOnInit();
+      this.onLocationPlaceChange = this.onLocationPlaceChange.bind(this);
       this.initFormGroup();
       this.fetchPackages();
   }
@@ -79,9 +87,11 @@ export class DeliveryComponent extends Package2DeliveryComponent{
     this.initFormGroup();
   }
   initFormGroup(){
+    this.location = this.delivery?.location;
     const packageIdFormControl : FormControl = new FormControl(this.delivery?.package_id || '', [Validators.required]);
     this.formGroup = new FormGroup({
       package_id : packageIdFormControl,
+      address : new FormControl(this.delivery?.address, [Validators.required]),
       pickup_time : new FormControl(toLocaleDateString(this.delivery?.pickup_time), [Validators.required]),
       start_time : new FormControl(toLocaleDateString(this.delivery?.start_time), [Validators.required]),
       status : new FormControl(this.delivery?.status || 'open', [Validators.required]),

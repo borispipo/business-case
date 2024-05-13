@@ -15,6 +15,7 @@ module.exports = {
     pickup_time : {type : Date},
     start_time  : {type : Date},
     end_time : {type : Date},
+    address : {type : String},//delivery address from wich to extract location
     location : {
         lat : { type : Number},
         lng : { type : Number},
