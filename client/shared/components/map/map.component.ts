@@ -1,3 +1,4 @@
+//@see : https://github.com/angular/components/blob/main/src/google-maps/README.md
 import {Component, Input, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {GoogleMapsModule, MapInfoWindow, MapMarker} from "@angular/google-maps";
@@ -51,11 +52,14 @@ export class MapComponent extends BaseComponent{
     this.getCurrentPosition();
   }
 
-  getCurrentPosition(): void {
+  getCurrentPosition(callback : (location:Location)=>void = null): void {
     navigator.geolocation.getCurrentPosition((position) => {
-      this.mapOptions.center = {
-        lat: position?.coords.latitude ?? 46.788,
-        lng: position?.coords.longitude ?? -71.3893,
+      if(typeof position?.coords.latitude == "number" && typeof position?.coords.longitude == "number"){
+        const location : Location = {lat: position?.coords.latitude,lng: position?.coords.longitude};
+        this.mapOptions.center = location;
+        if(callback){
+          callback(location);
+        }
       }
     });
   }
@@ -103,9 +107,11 @@ export class MapComponent extends BaseComponent{
   }
 
   moveMapView(): void {
-    this.mapOptions.center = {
-      lat: this.locationFrom?.lat ?? 0,
-      lng: this.locationFrom?.lng ?? 0
+    if(this.locationFrom){
+      this.mapOptions.center = {
+        lat: this.locationFrom?.lat ?? 0,
+        lng: this.locationFrom?.lng ?? 0
+      }
     }
   }
 

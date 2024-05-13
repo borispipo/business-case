@@ -18,6 +18,8 @@ import {
 
 type T = Delivery | Package;
 
+export {T};
+
 @Component({
   selector: 'app-package-delivery',
   standalone: true,
@@ -44,11 +46,11 @@ export class Package2DeliveryComponent  extends BaseComponent implements ErrorSt
     return false;
   }
   protected addNew(data:T): Promise<T>{
-     this.beforeUpsert(data);
+     this.beforeUpsert.call(this,data);
      return this.isDelivery() ? addDelivery(data) : addPackage(data);
   }
   protected update(data : T) : Promise<any> {
-    this.beforeUpsert(data);
+    this.beforeUpsert.call(this,data);
     return this.isUpdate && this.id ? (this.isDelivery() ? updateDelivery(this.id,data) : updatePackage(this.id,data)) : Promise.reject({
         message : `Could not update data, because id ${this.id} is invalid`
     });

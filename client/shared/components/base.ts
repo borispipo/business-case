@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Input } from '@angular/core';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ConfirmDialog } from '$shared/types';
-import { dateToDefaultFormat } from '$shared/utils';
+import { dateToDefaultFormat,uniqid } from '$shared/utils';
 
 @Component({
     selector: 'app-base',
@@ -33,6 +33,9 @@ export default abstract class BaseComponent implements OnInit{
         conf.componentInstance.onCancel = options.onCancel;
         conf.componentInstance.title = options.title;
         return conf;
+    }
+    protected uniqid (prefix : number | string, idStrLen : number = 16, separator : string = "") : string{
+        return uniqid(prefix,idStrLen,separator);
     }
     /***
         format l'objet date au format par défaut

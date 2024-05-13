@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>{{title}}</h2>
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography" class = "{{isLoading ? 'disabled':''}}">
     <div class="w100">
       <app-package-delivery>
         <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
