@@ -6,5 +6,6 @@ export default interface Delivery {
     start_time  : Date;
     end_time : Date;
     location : Location;
+    address : string,
     status : 'open' | 'picked-up' | 'in-transit' | 'delivered' | 'failed';
 }

@@ -3,6 +3,25 @@
     <div class="w100">
       <app-package-delivery>
         <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
+          <mat-form-field class="form-field">
+            <mat-label>Address : </mat-label>
+            <input type="text"
+              placeholder="Delivery Address"
+              matInput
+              name="address" matInput 
+              id = "delivery-address-selector"
+              matInput [errorStateMatcher]="errorStateMatcher"
+              formControlName="address"
+              [class.is-invalid]="isFieldValid('address')"  
+              [matAutocomplete]="auto"
+              [value] = "delivery?.address"
+           />
+            <map-location inputSelector="#delivery-address-selector" [locationFrom]="delivery?.location" [onPlaceChange] = "onLocationPlaceChange"></map-location>
+              @if (!isFieldValid('address')) {
+                <mat-error>Delivery address <strong>required</strong></mat-error>
+              }
+          
+          </mat-form-field>
           <mat-form-field class="form-field" class="{{isUpdate?'disabled':''}}">
             <mat-label>Package Id</mat-label>
             <input type="text"

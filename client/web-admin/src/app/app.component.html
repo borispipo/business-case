@@ -96,7 +96,10 @@
               <th mat-header-cell *matHeaderCellDef> ID </th>
               <td mat-cell *matCellDef="let delivery"> {{delivery.delivery_id}} </td>
             </ng-container>
-            
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let delivery"> {{delivery.address}} </td>
+            </ng-container>
             <ng-container matColumnDef="package_id">
               <th mat-header-cell *matHeaderCellDef> Package ID </th>
               <td mat-cell *matCellDef="let delivery"> {{delivery.package_id}} </td>
