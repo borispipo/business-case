@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>{{title}}</h2>
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography" class = "{{isLoading ? 'disabled':''}}">
     <div class="w100">
       <app-package-delivery>
         <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
@@ -44,12 +44,13 @@
           
           <mat-form-field class="form-field">
             <mat-label>From Address</mat-label>
-            <input type="text" name="from_address" matInput  [errorStateMatcher]="errorStateMatcher"
+            <input type="text" name="from_address" id = "package_from_address_input" matInput  [errorStateMatcher]="errorStateMatcher"
                 [value]="package?.from_address"
                 formControlName="from_address"
                 disabled="isLoading"
                 [class.is-invalid]="isFieldValid('from_address')"  
             >
+            <map-location inputSelector="#package_from_address_input" [locationFrom]="package?.from_location" [onPlaceChange] = "onChangeFromLocation"></map-location>
             @if (!isFieldValid('from_address')) {
                 <mat-error>From Address field is required <strong>required</strong></mat-error>
             }
@@ -62,7 +63,9 @@
               formControlName="to_address"
               disabled="isLoading"
               [class.is-invalid]="isFieldValid('to_address')"    
+              id = "package_to_address_input"
             >
+            <map-location inputSelector="#package_to_address_input" [locationFrom]="package?.to_location" [onPlaceChange] = "onChangeToLocation"></map-location>
             @if (!isFieldValid('to_address')) {
               <mat-error>To Address field is required <strong>required</strong></mat-error>
             }

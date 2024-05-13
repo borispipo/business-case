@@ -1,55 +1,3 @@
-import { Loader } from "@googlemaps/js-api-loader";
-import { uniqid } from "$shared/utils";
-
-const langRef = {current:null};
-const loaderRef = {current:null};
-const  mapInstanceRef = {current:null};
-
-export const mapDocumentElementId = uniqid("map-document-element-id");
-
-export const getMapDocumentElement = (elementId : string = mapDocumentElementId)=>{
-    if(!window || !window?.document) return null;
-    elementId = elementId || mapDocumentElementId;
-    var elt = document.querySelector(`${elementId}`);
-    if(!elt) {
-        elt = document.createElement("div");
-        document.body.appendChild(elt);
-    }
-    elt.id = elementId;
-    return elt;
-}
-
-
-/*****
-    @see : https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder#maps_places_placeid_finder-javascript
-*/
-export const getLoader = (force:boolean = false,options ) : Loader=>{
-    options = Object.assign({},options);
-    const lang = "en";
-    if(langRef.current !== lang){
-        force = true;
-    }
-    if(force !== true && loaderRef.current instanceof Loader){
-        return loaderRef.current;
-    }
-    langRef.current = lang;
-    loaderRef.current = new Loader({
-        apiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
-        version: "weekly",
-        libraries: ["places"],
-        ...options,
-    });
-    return loaderRef.current;
-}   
-
-export const load = (force,options)=>{
-    const loader = getLoader(force,options);
-    return loader.load().then(google=>{
-      return google.maps.importLibrary("maps").then((r)=>{
-        return {...r,google};
-      })
-    });
-}
 const defaultStr= x=> typeof x=="string" && x ||'';
 /**** retrieve adddresses from adress_components */
 export const getAddressesFromComponents = (address_components) => {
@@ -103,16 +51,3 @@ const ShouldBeComponent = {
     ],
     country: ["country"]
   };
-  
-  export function initMap(force,options) {
-    //@ts-ignore
-    return new Promise((resolve,reject)=>{
-      return load(force,options).then((dat)=>{
-        mapInstanceRef.current = dat;
-        resolve(dat);
-      }).catch((e)=>{
-        console.log(e," getting google map instance");
-        reject(e);
-      })
-    })
-  }
