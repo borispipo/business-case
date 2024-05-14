@@ -4,7 +4,7 @@ import { API_HOST } from "$shared/fetch";
   
 const defaultFunc = x=> typeof x =="function"? x : ()=>true;
 
-export function connect(options) {
+export function connect(options : any = {}) {
     options = Object.assign({},options);
     let {
       onOpen,

@@ -16,25 +16,26 @@
             {{trackPackageError}}
         </div>
     </div>
-    <div class="w100">
+    <div class="w100 flex justify-space-between tracker-content-container">
       <div class="package-delivery-container">
           <div class="p-1 mt-2">
             <div class="title">Package Details</div>
             <mat-divider/>
             <div *ngIf = "package" class="package-details">
               <list-detail label="Description" value={{package.description}}></list-detail>
+              <list-detail label="From Name" value = {{package.from_name}}/>
+              <list-detail label="To Name" value = {{package.to_name}}/>
+              <list-detail label="From addres" value = {{package.from_address}}/>
+              <list-detail label="To Address" value = {{package.to_address}}/>
               <list-detail label="Weight" value = {{package.weight}}/>
               <list-detail label="Height" value = {{package.height}}/>
               <list-detail label="Depth" value = {{package.depth}}/>
-              <list-detail label="From addres" value = {{package.from_address}}/>
-              <list-detail label="To Name" value = {{package.to_name}}/>
-              <list-detail label="To Address" value = {{package.to_address}}/>
             </div>
             <div *ngIf="!package" class="p-1">
               <p class="not-found-text">Not package Found with Id [{{packageId || ''}}] </p>
             </div>
           </div>
-          <div class="p-1 mt-2">
+          <div class="p-1 mt-5">
             <div class="w100">
               <mat-divider/>
               <div class="title">Delivery Details</div>
@@ -45,18 +46,16 @@
             <div *ngIf = "delivery" class="active-delivery-details">
               <list-detail label="ID" value={{delivery.delivery_id}}></list-detail>
               <list-detail label="Address" value={{delivery.address}}></list-detail>
-              <list-detail label="Pickup time" value={{dateToDefaultFormat(delivery.pickup_time)}}></list-detail>
-              <list-detail label="Start Time" value = {{delivery.start_time}}/>
-              <list-detail label="End Time" value = {{delivery.end_time}}/>
               <list-detail label="Status" value = {{delivery.status}}/>
+              <list-detail label="Pickup time" value={{dateToDefaultFormat(delivery.pickup_time)}}></list-detail>
+              <list-detail label="Start Time" value = {{dateToDefaultFormat(delivery.start_time)}}/>
+              <list-detail label="End Time" value = {{dateToDefaultFormat(delivery.end_time)}}/>
+              <app-socket/>
             </div>
           </div>
       </div>
-      <div>
-        
-        <app-map
-          height="200"
-          width="180">
+      <div class="map-container">
+        <app-map  [locationFrom]="package?.from_location" [locationTo]="package?.to_location" [location]="delivery?.location">
         </app-map>
       
       </div>

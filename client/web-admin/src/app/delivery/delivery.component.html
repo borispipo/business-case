@@ -20,7 +20,7 @@
               [class.is-invalid]="isFieldValid('address')"  
               [value] = "delivery?.address"
            />
-            <map-location inputSelector="#delivery-address-selector" [locationFrom]="delivery?.location" [onPlaceChange] = "onLocationPlaceChange"></map-location>
+            <map-location inputSelector="#delivery-address-selector" [location]="delivery?.location" [onPlaceChange] = "onLocationPlaceChange"></map-location>
               @if (!isFieldValid('address')) {
                 <mat-error>Delivery address <strong>required</strong></mat-error>
               }

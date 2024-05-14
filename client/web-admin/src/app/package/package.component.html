@@ -50,7 +50,7 @@
                 disabled="isLoading"
                 [class.is-invalid]="isFieldValid('from_address')"  
             >
-            <map-location inputSelector="#package_from_address_input" [locationFrom]="package?.from_location" [onPlaceChange] = "onChangeFromLocation"></map-location>
+            <map-location inputSelector="#package_from_address_input" [location]="package?.from_location" [onPlaceChange] = "onChangeFromLocation"></map-location>
             @if (!isFieldValid('from_address')) {
                 <mat-error>From Address field is required <strong>required</strong></mat-error>
             }
@@ -65,7 +65,7 @@
               [class.is-invalid]="isFieldValid('to_address')"    
               id = "package_to_address_input"
             >
-            <map-location inputSelector="#package_to_address_input" [locationFrom]="package?.to_location" [onPlaceChange] = "onChangeToLocation"></map-location>
+            <map-location inputSelector="#package_to_address_input" [location]="package?.to_location" [onPlaceChange] = "onChangeToLocation"></map-location>
             @if (!isFieldValid('to_address')) {
               <mat-error>To Address field is required <strong>required</strong></mat-error>
             }

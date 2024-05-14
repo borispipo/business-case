@@ -1,6 +1,5 @@
 export default interface Location {
-    name?: string;
+    title?: string;
     lat : number,
     lng : number,
-    country?: string;
 }
