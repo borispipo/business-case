@@ -63,6 +63,9 @@ module.exports = {
                 const id = new ObjectId();
                 await Model.upsert({[Model.primaryKey]:id},req.body);
                 const data = await Model.getOne(id);
+                if(typeof options.afterInsert =="function"){
+                    await options.afterInsert(data,req,res);
+                }
                 return res.json(data);
             } catch(e){
                 return handleError(e,res);
@@ -99,17 +102,20 @@ module.exports = {
     },
     
     /***
-        handle de la requête POST, qui crère un nouveau document via le model passé en paramètre
+        handle de la requête POST, qui supprime un nouveau document via le model passé en paramètre
         @param {Object} Model, le model crée à l'aide de la méthode factory de /models/factory
     */
     delete : (Model,options)=>{
         return async (req,res)=>{
             options = Object.assign({},options);
             try {
-                if(typeof options.beforeRemove =="function"){
-                    await options.beforeRemove(req,res);
+                if(typeof options.beforeDelete =="function"){
+                    await options.beforeDelete(req,res);
                 }
                 const data = await Model.delete(req.params.id);
+                if(typeof options.afterDelete ==="function"){
+                    await options.afterDelete(data,req,res);
+                }
                 return res.json(data);
             } catch(e){
                 return handleError(e,res);

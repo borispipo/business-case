@@ -13,6 +13,7 @@ import { toMySQLDate,toLocaleDateString } from '$shared/utils';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { debounceTime } from "rxjs/operators";
 import {Location,PlaceChangeResult} from "$stypes";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MapLocationComponent } from '$shared/components/map/location/location.component';
 
 import {
@@ -25,7 +26,7 @@ import {
 @Component({
   selector: 'app-delivery',
   standalone: true,
-  imports: [CommonModule,MatDialogModule,MatButtonModule,MatSelectModule,MapLocationComponent,
+  imports: [CommonModule,MatDialogModule,MatButtonModule,MatSelectModule,MapLocationComponent,MatCheckboxModule,
     MatInputModule,MatFormFieldModule,MatSelectModule,Package2DeliveryComponent, ReactiveFormsModule,MatProgressSpinner,MatAutocompleteModule
   ],
   templateUrl: './delivery.component.html',
@@ -95,7 +96,8 @@ export class DeliveryComponent extends Package2DeliveryComponent{
       pickup_time : new FormControl(toLocaleDateString(this.delivery?.pickup_time), [Validators.required]),
       start_time : new FormControl(toLocaleDateString(this.delivery?.start_time), [Validators.required]),
       status : new FormControl(this.delivery?.status || 'open', [Validators.required]),
-      end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[])
+      end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[Validators.required]),
+      isActive : new FormControl(this.isUpdate ? false : true,[]),
     })
     packageIdFormControl.valueChanges
     .pipe(debounceTime(300)) //après chaque 0.3 seconde, on fera une requête afin de filtrer les données 

@@ -58,16 +58,19 @@ export class AppComponent extends BaseComponent {
         }
     });
   }
-  ngOnInit(): void {
+  refresh(){
     this.isLoading = true;
-    Promise.all([this.fetchPackages(false),this.fetchDeliveries(false)]).finally(()=>{
+    return Promise.all([this.fetchPackages(false),this.fetchDeliveries(false)]).finally(()=>{
       this.isLoading = false;
     });
+  }
+  ngOnInit(): void {
+    this.refresh();
   }
   upsertPackage(id:string = undefined) : void {
     const dialog = this.openDialog<PackageComponent>(PackageComponent);
     dialog.componentInstance.id = id;
-    dialog.componentInstance.onUpsert = (data)=>{
+    dialog.componentInstance.onUpsert = ()=>{
       this.fetchPackages(true);
       dialog.close();
     };
@@ -75,8 +78,12 @@ export class AppComponent extends BaseComponent {
   upsertDelivery(id:string = undefined) : void {
     const dialog = this.openDialog<DeliveryComponent>(DeliveryComponent);
     dialog.componentInstance.id = id;
-    dialog.componentInstance.onUpsert = (data)=>{
-      this.fetchDeliveries(true);
+    dialog.componentInstance.onUpsert = ({data,result})=>{
+      if(data.isActive){
+        this.refresh();
+      } else {
+        this.fetchDeliveries(true);
+      }
       dialog.close();
     };
   }
@@ -96,11 +103,7 @@ export class AppComponent extends BaseComponent {
       onSuccess : ()=>{
         this.isLoading = true;
         return Promise.resolve(isDelivery ? deleteDelivery(id) : deletePackage(id)).then((d)=>{
-          if(isDelivery){
-            this.fetchDeliveries();
-          } else {
-            this.fetchPackages();
-          }
+          this.refresh();
         }).finally(()=>{
           this.isLoading = false;
         });

@@ -58,7 +58,7 @@ export class Package2DeliveryComponent  extends BaseComponent implements ErrorSt
   protected upsert(data : T) : Promise<any>{
     return (this.isUpdate && this.id ? this.update : this.addNew).bind(this)(data).then((r)=>{
       if(typeof this.onUpsert =="function"){
-        this.onUpsert(r);
+        this.onUpsert({data,result:r});
       }
       return r;
     })

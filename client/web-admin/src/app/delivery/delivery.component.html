@@ -3,6 +3,11 @@
     <div class="w100">
       <app-package-delivery>
         <form class="form {{formClass}}" [formGroup]="formGroup" (ngSubmit)="saveForm(formGroup)">
+          <div *ngIf="!isUpdate">
+            <mat-checkbox formControlName="isActive">
+                Set as active Delivery
+            </mat-checkbox>
+          </div>
           <mat-form-field class="form-field">
             <mat-label>Address : </mat-label>
             <input type="text"
@@ -13,7 +18,6 @@
               matInput [errorStateMatcher]="errorStateMatcher"
               formControlName="address"
               [class.is-invalid]="isFieldValid('address')"  
-              [matAutocomplete]="auto"
               [value] = "delivery?.address"
            />
             <map-location inputSelector="#delivery-address-selector" [locationFrom]="delivery?.location" [onPlaceChange] = "onLocationPlaceChange"></map-location>
