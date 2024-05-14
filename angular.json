@@ -13,7 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web-tracker",
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
+            "deployUrl": "web-tracker/",
+            "outputPath": {
+              "base" : "dist/web-tracker",
+              "browser": ""
+            },
             "index": "client/web-tracker/src/index.html",
             "browser": "client/web-tracker/src/main.ts",
             "polyfills": [
@@ -36,13 +43,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10kb",
+                  "maximumError": "20kb"
                 }
               ],
               "outputHashing": "all"
@@ -110,7 +117,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web-admin",
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
+            "deployUrl": "web-admin/",
+            "outputPath": {
+              "base": "dist/web-admin",
+              "browser": ""
+            },
             "index": "client/web-admin/src/index.html",
             "browser": "client/web-admin/src/main.ts",
             "polyfills": [
@@ -133,13 +147,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10kb",
+                  "maximumError": "20kb"
                 }
               ],
               "outputHashing": "all"

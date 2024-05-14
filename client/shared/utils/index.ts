@@ -1,11 +1,11 @@
-import moment from "moment";
+import moment from "moment/";
 
 /***
   les dates sont convertis au formats universel avant d'être envoyées côté serveur
 */
-export const toMySQLDate = function(date : string | Date) : string {
+export const toMySQLDate = function(date : string | Date) : Date {
     if(!date) return undefined;
-    return moment.utc(date)?.local()?.format('YYYY-DD-MM HH:mm:ss');
+    return moment.utc(date)?.local().toDate();//?.format('YYYY-DD-MM HH:mm:ss')
 };
   
 export const toLocaleDateString = (date : string | Date) : string =>{

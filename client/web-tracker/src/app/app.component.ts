@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MainComponent } from '$scomponents/main/main.component';
 import Delivery from '$stypes/Delivery';
 import Package from "$stypes/Package";
-import { getPackage } from '$fetch';
+import { getPackage,getDelivery} from '$fetch';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
@@ -12,6 +12,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';  
 import { ListDetailsComponent } from '$shared/components/list-detail/details.component';
 import { MapComponent } from '$shared/components/map/map.component';
+import BaseComponent from "$shared/components/base";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ import { MapComponent } from '$shared/components/map/map.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent extends BaseComponent{
   delivery : Delivery;
   package : Package;
   packageId : string;
@@ -42,6 +43,11 @@ export class AppComponent {
       getPackage(this.packageId,null).then((p)=>{
           this.package = p as Package;
           this.trackPackageError  = this.package ? null : `Package with Id : [${this.packageId}] doesn't exist in database.`;
+          if(!this.trackPackageError && p?.active_delivery_id){
+            getDelivery(p.active_delivery_id).then((delivery)=>{
+              this.delivery = delivery;
+            });
+          }
       }).catch((e)=>{
          this.trackPackageError = e?.message || e?.toString();
       }).finally(()=>{

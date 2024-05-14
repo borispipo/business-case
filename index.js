@@ -61,10 +61,12 @@ db.on("disconnected", function () {
     // connectWithRetry();
 });
 
+app.use(express.static(__dirname + '/dist'));
+
 /** SERVE PUBLIC FILES */
 app.use(express.static(__dirname + '/dist/web-driver'));
 
-if(String(process.env).toLowerCase() ==="production"){
+//if(String(process.env).toLowerCase() ==="production"){
   app.get('/web-driver', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/web-driver/index.html'));
   });
@@ -74,7 +76,7 @@ if(String(process.env).toLowerCase() ==="production"){
   app.get('/web-admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/web-admin/index.html'));
   });
-}
+//}
 // any route starting with '/api' will be interfacing our API
 app.use('/api', router);
 

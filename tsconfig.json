@@ -88,7 +88,7 @@
       "$socket/*" : ["client/shared/socket/*"],
       
       "$fetch" : ["client/shared/fetch/index.ts"],
-      
+      "$notify" : ["client/shared/notify/index.ts"],
       /**public paths*/
       "$dist/*" : [
         "dist/*"

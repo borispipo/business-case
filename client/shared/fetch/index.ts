@@ -22,6 +22,10 @@ export function unfetch<T>(path, options):Promise<T>{
             if([200,201].includes(res.status)){
                 return response;
             }
+            const message = response?.message || response && response?.toString() || null;
+            if(message){
+                alert(`API Error : ${path},\n ${message}`);
+            }
             throw response;
         })
     })) as Promise<T>;
