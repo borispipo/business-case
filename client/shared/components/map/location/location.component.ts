@@ -3,7 +3,6 @@ import {GoogleMap} from '@angular/google-maps';
 import { Input } from '@angular/core';
 import { MapComponent } from '../map.component';
 import {Location,PlaceChangeResult} from "$stypes";
-import {getAddressesFromComponents} from "../utils";
 
 
 @Component({
@@ -17,7 +16,7 @@ export class MapLocationComponent extends MapComponent{
   @Input() inputSelector : string; //le selecteur input où sera exécutée la fonction auto complate
   @Input() ! autoCompleteOptions : google.maps.places.AutocompleteOptions;
   @Input() onPlaceChange? : (place2Addresses:PlaceChangeResult)=>void; //callback when location change
-  locationChangeResult : PlaceChangeResult = {place:null,addersses : {}};
+  locationChangeResult : PlaceChangeResult = {place:null};
   readonly mapElementId : string = this.uniqid("location-map-element-id");
   mapListener : google.maps.MapsEventListener;
   ngOnInit(): void {
@@ -48,7 +47,7 @@ export class MapLocationComponent extends MapComponent{
                 return;
               }
               const location : Location = {lng:place.geometry.location.lng(), lat:place.geometry.location.lat()};
-              this.locationChangeResult = {place,addersses:getAddressesFromComponents(place?.address_components),location};
+              this.locationChangeResult = {place,location};
               if(this.onPlaceChange){
                 this.onPlaceChange(this.locationChangeResult);
               }

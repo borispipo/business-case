@@ -1,7 +1,7 @@
 //@see : https://github.com/angular/components/blob/main/src/google-maps/README.md
 import {Component, Input, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {GoogleMapsModule, MapInfoWindow, MapMarker} from "@angular/google-maps";
+import {GoogleMapsModule, MapInfoWindow, MapMarker,MapAdvancedMarker} from "@angular/google-maps";
 import Location from '$shared/types/Location';
 import BaseComponent from '../base';
 
@@ -18,14 +18,16 @@ export class MapComponent extends BaseComponent{
 
   @Input() locationFrom?: Location;
   @Input() locationTo?: Location;
+  @Input() location ? : Location;
 
-  @Input() !height: string | number = '600px';
-  @Input() !width: string | number = '600px';
+  @Input() !height: string = undefined;
+  @Input() !width: string  = undefined;
+  readonly markersPositions : Location[] = [];
 
   @Input() !mapOptions: google.maps.MapOptions = {
     center: {
-      lat: this.locationFrom?.lat || 0,
-      lng: this.locationFrom?.lng || 0
+      lat: this.location?.lat || 0,
+      lng: this.location?.lng || 0
     },
     mapId: 'customMap',
     scrollwheel: false,
@@ -35,9 +37,6 @@ export class MapComponent extends BaseComponent{
     maxZoom: 15,
     minZoom: 4,
   };
-
-  markers: Set<google.maps.Marker> = new Set();
-
   infoContent: string = '';
 
   polylineOptions: google.maps.PolylineOptions = {
@@ -51,12 +50,16 @@ export class MapComponent extends BaseComponent{
   ngOnInit(): void {
     this.getCurrentPosition();
   }
-
+  centerOnLocation (location:Location) : void{
+    if(location){
+      this.mapOptions.center = location;
+    }
+  }
   getCurrentPosition(callback : (location:Location)=>void = null): void {
     navigator.geolocation.getCurrentPosition((position) => {
       if(typeof position?.coords.latitude == "number" && typeof position?.coords.longitude == "number"){
         const location : Location = {lat: position?.coords.latitude,lng: position?.coords.longitude};
-        this.mapOptions.center = location;
+        this.centerOnLocation(location);
         if(callback){
           callback(location);
         }
@@ -65,39 +68,22 @@ export class MapComponent extends BaseComponent{
   }
 
   ngOnChanges(): void {
-    if (this.locationFrom) {
-      this.addMarker(this.locationFrom);
-    }
-
-    if (this.locationTo) {
-      this.addMarker(this.locationTo);
-    }
-
+    this.locations.map(this.addMarkerPostion.bind(this));
     if (this.hasLocation) {
       this.addPolyline();
     }
   }
-
+  get locations() : Location[]{
+    return [this.locationFrom,this.locationTo,this.location];
+  }
   get hasLocation(): boolean {
-    return !!this.locationFrom && !!this.locationTo;
+    return this.locations.filter((l)=>!!l).length >=2;
   }
 
-  loadMarker(location?: Location): google.maps.Marker {
-    return new google.maps.Marker({
-      position: {
-        lat: location?.lat ?? 0,
-        lng: location?.lng ?? 0
-      },
-      title: location?.name ?? '',
-      animation: google.maps.Animation.DROP,
-      draggable: false,
-    });
-  }
-
-  addMarker(location: Location): void {
-    const marker = this.loadMarker(location);
-    this.markers.add(marker);
-    this.moveMapView();
+  addMarkerPostion(location: Location): void {
+    if(location){
+      this.markersPositions.push(location);
+    }
   }
 
   moveMap(event: any): void {
@@ -121,12 +107,10 @@ export class MapComponent extends BaseComponent{
   }
 
   addPolyline(): void {
-    const markers = Array.from(this.markers).slice(-2);
     const path: google.maps.LatLng[] = [];
-    markers.forEach((marker, index) => {
-      path.push(new google.maps.LatLng(marker.getPosition()!));
+    this.markersPositions.forEach((position, index) => {
+      path.push(new google.maps.LatLng(position!));
     });
     this.polylineOptions = { ...this.polylineOptions, path };
-    this.markers = new Set(markers);
   }
 }

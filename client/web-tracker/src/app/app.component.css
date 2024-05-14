@@ -3,3 +3,7 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.tracker-content-container{
+    flex-wrap: nowrap;
+}

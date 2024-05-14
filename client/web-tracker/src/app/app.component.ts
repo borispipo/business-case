@@ -13,13 +13,14 @@ import { CommonModule } from '@angular/common';
 import { ListDetailsComponent } from '$shared/components/list-detail/details.component';
 import { MapComponent } from '$shared/components/map/map.component';
 import BaseComponent from "$shared/components/base";
+import { SocketComponent } from '$shared/components/socket/socket.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,MainComponent,MatButtonModule,MatInputModule,MatProgressSpinnerModule,MatProgressBarModule
-    ,MatDividerModule,MatListModule,ListDetailsComponent,MapComponent
+    ,MatDividerModule,MatListModule,ListDetailsComponent,MapComponent,SocketComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
