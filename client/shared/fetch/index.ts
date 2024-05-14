@@ -17,7 +17,14 @@ export function unfetch<T>(path, options):Promise<T>{
             'Content-Type': 'application/json',
             ...Object.assign({},options.headers)
         },
-    }}).then((res=>res.json())) as Promise<T>;
+    }}).then((res=>{
+        return res.json().then((response)=>{
+            if([200,201].includes(res.status)){
+                return response;
+            }
+            throw response;
+        })
+    })) as Promise<T>;
 }
 
 /***@function

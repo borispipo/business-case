@@ -9,7 +9,7 @@ router.get("/:id",requestHandler.getOne(Model));
 router.post("/:id",requestHandler.post(Model));
 router.put("/:id",requestHandler.put(Model));
 router.delete("/:id",requestHandler.delete(Model,{
-    beforeRemove : async (req,res)=>{
+    beforeDelete : async (req,res)=>{
         const package_id = req.params.id;
         /****
             remove all deliveries on package id
