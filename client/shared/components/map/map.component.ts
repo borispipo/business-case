@@ -22,16 +22,14 @@ export class MapComponent extends BaseComponent{
   @Input() location ? : Location;
   directionsResults$: Observable<google.maps.DirectionsResult|undefined> = null;
   mapDirectionsService : MapDirectionsService;
+  readonly mapId : string = this.uniqid("gmap-id");
 
   @Input() !height: string = undefined;
   @Input() !width: string  = undefined;
-  readonly markersPositions : Location[] = [];
+  markersPositions : Location[] = [];
   constructor(dialog:MatDialog,confirmDialog : MatDialog,mapDirectionsService: MapDirectionsService) {
     super(dialog,confirmDialog);
     this.mapDirectionsService = mapDirectionsService;
-  }
-  get mapId() : string{
-    return "custom-map-id";
   }
   @Input() !mapOptions: google.maps.MapOptions = {
     center: {
@@ -95,6 +93,7 @@ export class MapComponent extends BaseComponent{
     }
   }
   ngOnChanges(): void {
+    this.markersPositions = [];
     this.prepareDirections();
     this.prefixLocationTitle(this.locationFrom,'From');
     this.prefixLocationTitle(this.locationTo, ' To');
