@@ -14,7 +14,9 @@ import { ListDetailsComponent } from '$shared/components/list-detail/details.com
 import { MapComponent } from '$shared/components/map/map.component';
 import BaseComponent from "$shared/components/base";
 import { SocketComponent } from '$shared/components/socket/socket.component';
-
+const {delivery_updated,location_changed,status_changed} = require("$socket-events");
+import { parseJSON } from '$shared/components/socket/utils';
+import { SocketEvent } from '$shared/types';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -31,6 +33,32 @@ export class AppComponent extends BaseComponent{
   packageId : string;
   trackPackageError : string;
   isLoading : boolean;
+  readonly socketEvents : SocketEvent [] = [  
+    {
+      event : delivery_updated, 
+      callback : function(data){
+        data = parseJSON(data);
+      }.bind(this)
+    },
+    {
+      event : location_changed,
+      callback : function(data){
+        data = parseJSON(data);
+        if(data.location && data.delivery_id && data.delivery_id == this.delivery?.delivery_id){
+          this.delivery.location = data.location;
+        }
+      }.bind(this)
+    },
+    {
+      event : status_changed,
+      callback : function(data){
+        data = parseJSON(data);
+        if(data.status && data.delivery_id && data.delivery_id == this.delivery?.delivery_id){
+          this.delivery.status = data.status;
+        }
+      }.bind(this),
+    }
+  ];
   ngOnInit(): void {
     this.packageId = "";
     this.isLoading = false;
