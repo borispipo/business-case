@@ -14,7 +14,7 @@ import { ListDetailsComponent } from '$shared/components/list-detail/details.com
 import { MapComponent } from '$shared/components/map/map.component';
 import BaseComponent from "$shared/components/base";
 import { SocketComponent } from '$shared/components/socket/socket.component';
-const {delivery_updated,location_changed,status_changed} = require("$socket-events");
+import {location_changed,status_changed,delivery_updated} from "$shared/socket/events";
 import { parseJSON } from '$shared/components/socket/utils';
 import { SocketEvent } from '$shared/types';
 import { PackageDetailsComponent } from '$shared/components/package-details/package-details.component';

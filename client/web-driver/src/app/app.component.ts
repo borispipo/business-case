@@ -12,8 +12,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MapComponent } from '$shared/components/map/map.component';
 import {Status} from "$stypes/Delivery";
-
-const {delivery_updated,location_changed,status_changed} = require("$socket-events");
+import {location_changed,status_changed} from "$shared/socket/events";
 @Component({
   selector: 'app-root',
   standalone: true,
