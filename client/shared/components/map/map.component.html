@@ -13,6 +13,9 @@
   </map-advanced-marker>
   <map-info-window>{{ infoContent }}</map-info-window>
   <map-polyline [options]="polylineOptions" ></map-polyline>
+  @if (directionsResults$ | async; as directionsResults) {
+    <map-directions-renderer [directions]="directionsResults" />
+  }
   <ng-content #name></ng-content>
 </google-map>
 
