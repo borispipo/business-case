@@ -1,19 +1,15 @@
-
-<app-main class="main">
+<app-main class="main">  
   <div class="main-content container {{isLoading ? 'disabled':''}}">
     <h2 class="m-2 text-center w100 app-title">
-        Web Tracker
+        Web Driver
     </h2>
     <div class="main-header">
         <div class="flex">
-            <input class="track-package-input" placeholder="Enter Package ID" [value]="packageId" (input)="onSearchChange($event.target.value)"/>
-            <button mat-flat-button class="ml-2" [disabled] = "isLoading" color="primary" (click)="trackPackage()">Track</button>
+            <input matInput class="fetch-delivery-input" placeholder="Enter Package ID" [value]="deliveryId || ''" (input)="onSearchChange($event.target.value)"/>
+            <button mat-flat-button class="ml-2" [disabled] = "isLoading" color="primary" (click)="fetchDelivery()">Track</button>
         </div>
         <div class="mt-1" *ngIf="isLoading">
           <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
-        </div>
-        <div *ngIf = "trackPackageError && false" class="w100 text-center pt-2 pb-2 text-error">
-            {{trackPackageError}}
         </div>
     </div>
     <div class="w100 flex justify-space-between tracker-content-container">
@@ -21,7 +17,7 @@
           <div class="p-1 mt-2">
             <package-details [package]="package"/>
             <div *ngIf="!package" class="p-1">
-              <p class="not-found-text">Not package Found with Id [{{packageId || ''}}] </p>
+              <p class="not-found-text">Not package Found with Id [{{deliveryId || ''}}] </p>
             </div>
           </div>
           <div class="p-1 mt-5">
@@ -29,15 +25,14 @@
               [delivery]="delivery"
             />
             <div *ngIf="!delivery" class="p-1 not-found-text">
-              <p class="not-found-text">Not active deliveries associated with the package Id [{{packageId || ''}}] </p>
+              <p class="not-found-text">Not active deliveries associated with the package Id [{{deliveryId || ''}}] </p>
             </div>
-            <app-socket [events]="socketEvents"/>
+            <app-socket/>
           </div>
       </div>
       <div class="map-container">
         <app-map [locationFrom]="package?.from_location" [locationTo]="package?.to_location" [location]="delivery?.location">
         </app-map>
-      
       </div>
     </div>
   </div>
