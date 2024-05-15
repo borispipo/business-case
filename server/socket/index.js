@@ -3,6 +3,7 @@ const PINGINTERVAL = 5000;
 const PINGTIMEOUT = 7100;
 const events = require("./events");
 const Delivery = require("../models/Delivery");
+const moment = require("moment");
 
 const clients = {};
 /***
@@ -14,6 +15,10 @@ const getQueryParams = (socket)=>{
 const upsertDelivery = async (id,data)=>{
     try {
         await Delivery.upsert(id,data);
+        const delivery = await Delivery.getOne(id);
+        if(delivery){
+            emit(events.delivery_updated,delivery);
+        }
     } catch(e){
         console.log(e," upserrting delivering")
     }
@@ -42,9 +47,7 @@ module.exports = {
                 }
                 clients [clientId] = socket;
                 console.log(`socket client with id ${clientId} is connected`);
-                socket.on(events.delivery_updated,(data)=>{
-                    data = Object.assign({},JSON.parse(data));
-                });
+                
                 socket.on(events.location_changed,(data)=>{
                     data = Object.assign({},JSON.parse(data));
                     if(data.delivery_id){
@@ -53,6 +56,19 @@ module.exports = {
                 });
                 socket.on(events.status_changed, (data)=>{
                     data = Object.assign({},JSON.parse(data));
+                    const date = moment.utc(new Date())?.local().toDate();
+                    switch(data.status){
+                        //'picked-up' | 'in-transit' | 'delivered' | 'failed'
+                        case 'picked-up':
+                            data.pickup_time = date;
+                            break;
+                        case 'in-transit' : 
+                            data.start_time = date;
+                            break;
+                        case 'delivered' : 
+                            data.end_time = date;
+                            break;
+                    }
                     if(data.delivery_id){
                         upsertDelivery(data.delivery_id,data);
                     }
@@ -74,7 +90,7 @@ module.exports = {
 
 module.exports.clients = clients;
 
-module.exports.emit = (...rest)=>{
+const emit = module.exports.emit = (...rest)=>{
     Object.keys(clients).map((clientId)=>{
         const socket = clients[clientId];
         if(! socket || !socket?.emit) {

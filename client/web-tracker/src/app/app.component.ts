@@ -40,6 +40,7 @@ export class AppComponent extends BaseComponent{
       event : delivery_updated, 
       callback : function(data){
         data = parseJSON(data);
+        this.delivery = data;
       }.bind(this)
     },
     {

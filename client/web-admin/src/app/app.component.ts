@@ -31,7 +31,7 @@ export class AppComponent extends BaseComponent {
   deliveries  : Array<Delivery> = [];
   isLoading : boolean = true;
   readonly packageColumns: string[] = ["package_id","active_delivery_id","description","weight","height","depth","from_name","from_address","to_name","to_address","actions"];
-  readonly deliveryColumns: string[] = ["delivery_id","address","package_id","pickup_time","start_time","end_time","status","actions"];
+  readonly deliveryColumns: string[] = ["delivery_id","package_id","status","pickup_time","start_time","end_time","actions"];
   fetchPackages(updateLoading : boolean = true) : Promise<Array<Package>>{
     if(updateLoading && !this.isLoading){
       this.isLoading = true;

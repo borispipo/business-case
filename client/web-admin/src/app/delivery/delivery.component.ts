@@ -92,11 +92,11 @@ export class DeliveryComponent extends Package2DeliveryComponent{
     const packageIdFormControl : FormControl = new FormControl(this.delivery?.package_id || '', [Validators.required]);
     this.formGroup = new FormGroup({
       package_id : packageIdFormControl,
-      address : new FormControl(this.delivery?.address, [Validators.required]),
-      pickup_time : new FormControl(toLocaleDateString(this.delivery?.pickup_time), [Validators.required]),
-      start_time : new FormControl(toLocaleDateString(this.delivery?.start_time), [Validators.required]),
+      //address : new FormControl(this.delivery?.address, [Validators.required]),
+      pickup_time : new FormControl(toLocaleDateString(this.delivery?.pickup_time), []),
+      start_time : new FormControl(toLocaleDateString(this.delivery?.start_time), []),
       status : new FormControl(this.delivery?.status || 'open', [Validators.required]),
-      end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[Validators.required]),
+      end_time : new FormControl(toLocaleDateString(this?.delivery?.end_time),[]),
       isActive : new FormControl(this.isUpdate ? false : true,[]),
     })
     packageIdFormControl.valueChanges
