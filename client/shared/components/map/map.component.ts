@@ -77,7 +77,7 @@ export class MapComponent extends BaseComponent{
   prefixLocationTitle(location:Location,title:string) : void{
     if(location && title){
       location.title = location.title || '';
-      if(!location.title.toLowerCase().startsWith(title.toLowerCase().trim())){
+      if(!location.title.toLowerCase().startsWith(title.toLowerCase().trim()+" :")){
         location.title = `${title} : ${location.title}`;
       }
     }
@@ -89,14 +89,17 @@ export class MapComponent extends BaseComponent{
         origin: this.locationFrom,
         travelMode: google.maps.TravelMode.DRIVING
       };
+      if(this.location){
+        request.waypoints = [{location:this.location}]
+      }
       this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
     }
   }
   ngOnChanges(): void {
     this.markersPositions = [];
     this.prepareDirections();
-    this.prefixLocationTitle(this.locationFrom,'From');
-    this.prefixLocationTitle(this.locationTo, ' To');
+    this.prefixLocationTitle(this.locationFrom,"From");
+    this.prefixLocationTitle(this.locationTo,"To");
     this.prefixLocationTitle(this.location,"Current location");
     this.locations.map(this.addMarkerPostion.bind(this));
     if (this.hasLocation) {
@@ -142,6 +145,7 @@ export class MapComponent extends BaseComponent{
   }
 
   addPolyline(): void {
+    return;
     const path: google.maps.LatLng[] = [];
     this.markersPositions.forEach((position, index) => {
         path.push(new google.maps.LatLng(position!));
