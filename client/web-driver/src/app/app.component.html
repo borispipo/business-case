@@ -5,8 +5,8 @@
     </h2>
     <div class="main-header">
         <div class="flex">
-            <input matInput class="fetch-delivery-input" placeholder="Enter Package ID" [value]="deliveryId || ''" (input)="onSearchChange($event.target.value)"/>
-            <button mat-flat-button class="ml-2" [disabled] = "isLoading" color="primary" (click)="fetchDelivery()">Track</button>
+            <input matInput class="fetch-delivery-input" placeholder="Enter Delivery ID" [value]="deliveryId || ''" (input)="onSearchChange($event.target.value)"/>
+            <button mat-flat-button class="ml-2" [disabled] = "isLoading" color="primary" (click)="fetchDelivery()">Submit</button>
         </div>
         <div class="mt-1" *ngIf="isLoading">
           <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
@@ -27,12 +27,18 @@
             <div *ngIf="!delivery" class="p-1 not-found-text">
               <p class="not-found-text">Not active deliveries associated with the package Id [{{deliveryId || ''}}] </p>
             </div>
-            <app-socket/>
+            <app-socket [onOpen]="onConnectionOpen" [onClose]="onConnectionClose"/>
           </div>
       </div>
       <div class="map-container">
         <app-map [locationFrom]="package?.from_location" [locationTo]="package?.to_location" [location]="delivery?.location">
         </app-map>
+      </div>
+      <div class="delivery-driver-container {{isLoading || !delivery ? 'disabled':''}}">
+        <button [disabled]="isLoading || !delivery || delivery?.status !=='open' " mat-flat-button color="primary" class="ml-2 mt-2 btn-status {{delivery?.status =='picked-up'?'active':''}}" (click)="updateStatus('picked-up')">Picked Up</button>
+        <button [disabled]="isLoading || !delivery || delivery?.status !='picked-up'" mat-raised-button class="ml-2 mt-2 btn-status {{delivery?.status =='in-transit'?'active':''}}" color="warn" (click)="updateStatus('in-transit')">In Transit</button>
+        <button [disabled]="isLoading || !delivery || delivery?.status !='in-transit'" mat-flat-button class="ml-2 mt-2 btn-success btn-status {{delivery?.status =='delivered'?'active':''}}"  (click)="updateStatus('delivered')">Delivered</button>
+        <button [disabled]="isLoading || !delivery || delivery?.status !='in-transit'" mat-flat-button class="ml-2 mt-2 btn-failed btn-status {{delivery?.status =='failed'?'active':''}}" (click)="updateStatus('failed')">Failed</button>
       </div>
     </div>
   </div>

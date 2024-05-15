@@ -6,3 +6,30 @@
 .tracker-content-container {
     flex-wrap: nowrap;
 }
+
+.delivery-driver-container {
+    width: 130px;
+}
+
+.btn-status{
+    width: 120px;
+    cursor: pointer;
+}
+.btn-status.active{
+    border-left: 10px solid rgb(208, 205, 15);
+    border-bottom: 5px solid rgba(202, 192, 6, 0.885);
+}
+.btn-success {
+    background: #6AA84F!important;
+    color  : black;
+    font-weight: bold;
+}
+.btn-status.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.btn-failed {
+    background: #E06666!important;
+    color:black;
+    font-weight: bold;
+}

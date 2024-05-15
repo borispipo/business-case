@@ -33,32 +33,7 @@ router.post("/:id",requestHandler.post(Model,{
         }
     }
 }));
-router.put("/:id",async (req,res)=>{
-    const delivery_id = req.params.id;
-    const data = Object.assign({},req.body);
-    const locationHasChanged = ("location"  in data );//Location changed
-    const statusChanged = ("status" in data); //status changed
-    try {
-        const toUpdate = await Model.getOne(delivery_id);
-        const r = await requestHandler.put(Model)(req,res);
-        if(statusChanged || locationHasChanged && toUpdate){
-            setTimeout(async ()=>{
-                //check if location_changed 
-                if(locationHasChanged && !compareLocations(data.location,toUpdate.location)){
-                    //location changes, emit events on location changed
-                    socket.emit(events.location_changed,JSON.stringify({event:events.location_changed,delivery_id, location:data.location}));
-                }
-                    if(statusChanged && String(data.status).toLowerCase() !== String(toUpdate.status).toLowerCase()){
-                    //status changed 
-                    socket.emit(events.status_changed,JSON.stringify({event:events.status_changed,delivery_id, status:data.status}));
-                }
-            },500);//non blocking instruction
-        }
-        return r;
-    } catch(e){
-        requestHandler.handleError(e,res);
-    }
-});
+router.put("/:id",requestHandler.put(Model));
 router.delete("/:id",requestHandler.delete(Model,{
     afterDelete : async (data,req,res)=>{
         const deletedDeliveryId = req.params.id;

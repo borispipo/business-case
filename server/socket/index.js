@@ -2,6 +2,7 @@ const { Server } = require("socket.io");
 const PINGINTERVAL = 5000;
 const PINGTIMEOUT = 7100;
 const events = require("./events");
+const Delivery = require("../models/Delivery");
 
 const clients = {};
 /***
@@ -10,7 +11,13 @@ const clients = {};
 const getQueryParams = (socket)=>{
     return Object.assign({},socket?.handshake?.query);
 }
-
+const upsertDelivery = async (id,data)=>{
+    try {
+        await Delivery.upsert(id,data);
+    } catch(e){
+        console.log(e," upserrting delivering")
+    }
+}
 const ioInstance = {current : null};
 module.exports = {
     get init(){
@@ -35,15 +42,27 @@ module.exports = {
                 }
                 clients [clientId] = socket;
                 console.log(`socket client with id ${clientId} is connected`);
-                //socket.on(types.GET_GURUX_APP_CONNECT, authCtrl.getGuruxAppConnect);
-                //socket.on(types.RESTART_APP, updateCtrl.restartApp);
+                socket.on(events.delivery_updated,(data)=>{
+                    data = Object.assign({},JSON.parse(data));
+                });
+                socket.on(events.location_changed,(data)=>{
+                    data = Object.assign({},JSON.parse(data));
+                    if(data.delivery_id){
+                        upsertDelivery(data.delivery_id,data);
+                    }
+                });
+                socket.on(events.status_changed, (data)=>{
+                    data = Object.assign({},JSON.parse(data));
+                    if(data.delivery_id){
+                        upsertDelivery(data.delivery_id,data);
+                    }
+                });
                 socket.on('disconnect', (...rest) => {
                     console.log('socket client disconnected with id '+clientId+" is disconnected");
                     delete clients[clientId];
                 });
             });
             ioInstance.current = io;
-            
             return io;
         }
     },
