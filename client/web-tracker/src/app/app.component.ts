@@ -17,12 +17,14 @@ import { SocketComponent } from '$shared/components/socket/socket.component';
 const {delivery_updated,location_changed,status_changed} = require("$socket-events");
 import { parseJSON } from '$shared/components/socket/utils';
 import { SocketEvent } from '$shared/types';
+import { PackageDetailsComponent } from '$shared/components/package-details/package-details.component';
+import { DeliveryDetailsComponent } from '$shared/components/delivery-details/delivery-details.component';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,MainComponent,MatButtonModule,MatInputModule,MatProgressSpinnerModule,MatProgressBarModule
-    ,MatDividerModule,MatListModule,ListDetailsComponent,MapComponent,SocketComponent
+    ,MatDividerModule,MatListModule,ListDetailsComponent,MapComponent,SocketComponent,PackageDetailsComponent,DeliveryDetailsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

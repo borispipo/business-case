@@ -1,0 +1,15 @@
+<div class="packdate-details-container">
+    <div class="title">{{title || 'Package Details'}}</div>
+    <mat-divider/>
+    <div *ngIf = "package" class="package-details">
+      <list-detail label="Description" value={{package.description}}></list-detail>
+      <list-detail label="From Name" value = {{package.from_name}}/>
+      <list-detail label="To Name" value = {{package.to_name}}/>
+      <list-detail label="From addres" value = {{package.from_address}}/>
+      <list-detail label="To Address" value = {{package.to_address}}/>
+      <list-detail label="Weight" value = {{package.weight}}/>
+      <list-detail label="Height" value = {{package.height}}/>
+      <list-detail label="Depth" value = {{package.depth}}/>
+    </div>
+    <ng-content></ng-content>
+</div>
