@@ -14,6 +14,7 @@ export function connect(options : any = {}) {
       onError,
       queryParams,
       autoReconnect,
+      clientId,
     } = options;
     autoReconnect = autoReconnect !== false ? true : false;
     onOpen = defaultFunc(onOpen);
@@ -24,6 +25,7 @@ export function connect(options : any = {}) {
     
     queryParams = Object.assign({},queryParams);
     queryParams.type  = "client_app";
+    queryParams.clientId = clientId;
     const socket = io(`${API_HOST}`, {
       //autoConnect : true,
       query : queryParams,
@@ -84,9 +86,8 @@ export const sendMessage = (socket,type:string, options:object) : Promise<any> =
         message: " socket is not defined, could not send message ",
       });
     }
-    options = Object.assign({},options);
-    if (!options || !isNonNullString(type)) return Promise.reject({ message : "options non valides car le type de message ", options });
+    if (!isNonNullString(type)) return Promise.reject({ message : "options non valides car le type de message ", options });
     return new Promise((resolve,reject)=>{
-        return socket.emit(type, options, resolve);
+        return socket.emit(type, JSON.stringify(options), resolve);
     })
 };
