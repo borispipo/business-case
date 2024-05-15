@@ -1,0 +1,15 @@
+<div class="delivery-detail-container">
+    <div class="w100 delivery-detail-header">
+        <div class="title">{{title || 'Delivery Details'}}</div>
+        <mat-divider/>
+    </div>
+    <div *ngIf = "delivery" class="active-delivery-details">
+        <list-detail label="ID" value={{delivery.delivery_id}}></list-detail>
+        <list-detail label="Address" value={{delivery.address}}></list-detail>
+        <list-detail label="Status" value = {{delivery.status}}/>
+        <list-detail label="Pickup time" value={{dateToDefaultFormat(delivery.pickup_time)}}></list-detail>
+        <list-detail label="Start Time" value = {{dateToDefaultFormat(delivery.start_time)}}/>
+        <list-detail label="End Time" value = {{dateToDefaultFormat(delivery.end_time)}}/>
+        <ng-content></ng-content>  
+    </div>
+</div>
