@@ -42,11 +42,20 @@ export class AppComponent extends BaseComponent{
     if(this.packageId){
       this.isLoading = true;
       getPackage(this.packageId,null).then((p)=>{
-          this.package = p as Package;
+          this.package = p ? Object.assign({},p as Package) : null;
+          if(this.package.from_location){
+            this.package.from_location.title = this.package.from_location.name = this.package.from_address;
+          }
+          if(this.package.to_location){
+            this.package.to_location.title = this.package.to_location.name  = this.package.to_address;
+          }
           this.trackPackageError  = this.package ? null : `Package with Id : [${this.packageId}] doesn't exist in database.`;
           if(!this.trackPackageError && p?.active_delivery_id){
             getDelivery(p.active_delivery_id).then((delivery)=>{
               this.delivery = delivery;
+              if(this.delivery.location){
+                this.delivery.location.title = this.delivery.location.name = this.delivery.address;
+              }
             });
           }
       }).catch((e)=>{

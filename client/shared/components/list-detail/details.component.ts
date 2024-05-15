@@ -15,9 +15,17 @@ export class ListDetailsComponent {
   @Input() containerClass! : string;
   @Input() divider ! : boolean;
   text : string;
+  updateText(){
+    this.text = String(["string","number"].includes(typeof this.value)? this.value || "" : String(this.value));
+  }
+  ngOnChanges(changes): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    this.updateText();
+  }
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.text = String(["string","number"].includes(typeof this.value)? this.value || "" : String(this.value));
+    this.updateText();
   }
 }
