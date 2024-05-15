@@ -21,6 +21,15 @@
     ],
     "useDefineForClassFields": false,
     "paths": {
+      "$projectRoot/*": [
+        "/*"
+      ],
+      "$server/*": [
+        "server/*"
+      ],
+      "$socket-events": [
+        "server/socket/events.js"
+      ],
       /** web drivers paths*/
       "$driver/*": [
         "client/web-driver/*"
