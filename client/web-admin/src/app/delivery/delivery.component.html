@@ -8,7 +8,8 @@
                 Set as active Delivery
             </mat-checkbox>
           </div>
-          <mat-form-field class="form-field">
+          <!-- 
+              <mat-form-field class="form-field">
             <mat-label>Address : </mat-label>
             <input type="text"
               placeholder="Location"
@@ -26,6 +27,7 @@
               }
           
           </mat-form-field>
+          -->
           <mat-form-field class="form-field" class="{{isUpdate?'disabled':''}}">
             <mat-label>Package Id</mat-label>
             <input type="text"
@@ -54,7 +56,26 @@
               <mat-error>package_id is <strong>required</strong></mat-error>
             }
           </mat-form-field>
+          
           <mat-form-field class="form-field">
+            <mat-label>Status</mat-label>
+            <mat-select
+              name="status" matInput  [errorStateMatcher]="errorStateMatcher"
+              [value]="delivery?.status"
+              formControlName="status"
+              [disabled]="true"
+              class="disabled"
+              [class.is-invalid]="isFieldValid('status')"
+            >
+              @for (status of statutes ; track status) {
+                <mat-option  [value]="status" [disabled]="true">{{status}}</mat-option>
+              }
+            </mat-select>
+            @if (!isFieldValid('status')) {
+              <mat-error>Status field is required <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field class="form-field disabled">
             <mat-label>Pickup Time</mat-label>
             <input type="datetime-local" name="pickup_time" matInput [errorStateMatcher]="errorStateMatcher"
               [defaultValue]="delivery?.pickup_time"
@@ -67,7 +88,7 @@
             }
           </mat-form-field>
           
-          <mat-form-field class="form-field">
+          <mat-form-field class="form-field disabled">
             <mat-label>Start Time</mat-label>
             <input type="datetime-local" name="start_time" matInput  [errorStateMatcher]="errorStateMatcher"
               [defaultValue]="delivery?.start_time"
@@ -80,7 +101,7 @@
               }
           </mat-form-field>
           
-          <mat-form-field class="form-field">
+          <mat-form-field class="form-field disabled">
             <mat-label>End Time</mat-label>
             <input type="datetime-local" name="end_time" matInput  [errorStateMatcher]="errorStateMatcher"
                 [defaultValue]="delivery?.end_time"
@@ -90,23 +111,6 @@
             >
           </mat-form-field>
           
-          <mat-form-field class="form-field">
-            <mat-label>Status</mat-label>
-            <mat-select
-              name="status" matInput  [errorStateMatcher]="errorStateMatcher"
-              [value]="delivery?.status"
-              formControlName="status"
-              disabled="isLoading"
-              [class.is-invalid]="isFieldValid('status')"
-            >
-              @for (status of statutes ; track status) {
-                <mat-option [value]="status">{{status}}</mat-option>
-              }
-            </mat-select>
-            @if (!isFieldValid('status')) {
-              <mat-error>Status field is required <strong>required</strong></mat-error>
-            }
-          </mat-form-field>
          
         </form>
       </app-package-delivery>
