@@ -89,10 +89,9 @@ module.exports = {
                 if(typeof options.beforeUpdate =="function"){
                     await options.beforeUpdate(toUpdate,req,res);
                 }
-                delete toUpdate[Model.primaryKey];
                 const data = await Model.upsert({[Model.primaryKey]:primaryKeyValue},toUpdate,{runValidators:true}).exec();
                 if(typeof options.afterUpdate =="function"){
-                    await options.afterUpdate({data:toUpdate,result:data});
+                    await options.afterUpdate({data:Object.assign({},req.body),result:data,[Model.primaryKey]:primaryKeyValue},req,res);
                 }
                 return res.json(data);
             } catch(e){

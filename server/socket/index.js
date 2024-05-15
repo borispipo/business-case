@@ -2,13 +2,14 @@ const { Server } = require("socket.io");
 const PINGINTERVAL = 5000;
 const PINGTIMEOUT = 7100;
 const events = require("./events");
-const eventEmitter = require("../events");
 
 const clients = {};
+/***
+    retrieve socket request header params
+*/
 const getQueryParams = (socket)=>{
     return Object.assign({},socket?.handshake?.query);
 }
-const getClientId = (socket)=> getQueryParams(socket).clientId;
 
 const ioInstance = {current : null};
 module.exports = {
@@ -32,27 +33,14 @@ module.exports = {
                     socket.disconnect();
                     return;
                 }
-                clients [clientId] = {socket};
+                clients [clientId] = socket;
                 console.log(`socket client with id ${clientId} is connected`);
                 //socket.on(types.GET_GURUX_APP_CONNECT, authCtrl.getGuruxAppConnect);
                 //socket.on(types.RESTART_APP, updateCtrl.restartApp);
                 socket.on('disconnect', (...rest) => {
-                    console.log('socket client disconnected',rest);
+                    console.log('socket client disconnected with id '+clientId+" is disconnected");
                     delete clients[clientId];
                 });
-                socket.on(events.delivery_updated,(...rest)=>{
-                    console.log("delivery changeddd ",rest,clients);
-                });
-                socket.on(events.location_changed,(data,event)=>{
-                    console.log("location change for ",data,event);
-                });
-                socket.on(events.status_changed,(data,event)=>{
-                    console.log("delivery status change for ",data,event);
-                });
-                
-            });
-            eventEmitter.addListener(eventEmitter.SOCKET_EVENT,function(data){
-                    
             });
             ioInstance.current = io;
             
@@ -65,4 +53,21 @@ module.exports = {
     
 }
 
-module.exports.clients = {};
+module.exports.clients = clients;
+
+module.exports.emit = (...rest)=>{
+    Object.keys(clients).map((clientId)=>{
+        const socket = clients[clientId];
+        if(! socket || !socket?.emit) {
+            console.log(" client id has not valid for client ",clientId);
+            return;
+        }
+        console.log("emitint socket event on client with id ",clientId);
+        socket.emit(...rest);
+    });
+}
+module.exports.broadcast = (...rest)=>{
+    const io = module.exports.io();
+    if(!io || typeof io?.emit !=="function") return;
+    return io.emit(...rest);
+}

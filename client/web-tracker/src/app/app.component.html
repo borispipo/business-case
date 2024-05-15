@@ -50,7 +50,7 @@
               <list-detail label="Pickup time" value={{dateToDefaultFormat(delivery.pickup_time)}}></list-detail>
               <list-detail label="Start Time" value = {{dateToDefaultFormat(delivery.start_time)}}/>
               <list-detail label="End Time" value = {{dateToDefaultFormat(delivery.end_time)}}/>
-              <app-socket/>
+              <app-socket [events]="socketEvents"/>
             </div>
           </div>
       </div>

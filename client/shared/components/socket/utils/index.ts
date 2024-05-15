@@ -91,3 +91,9 @@ export const sendMessage = (socket,type:string, options:object) : Promise<any> =
         return socket.emit(type, JSON.stringify(options), resolve);
     })
 };
+
+export const parseJSON = (data:string | object): object => {
+  if(!data) return {};
+  if(typeof data =='string') return Object.assign({},JSON.parse(data));
+  return data as object;
+}

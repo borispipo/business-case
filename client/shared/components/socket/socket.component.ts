@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {connect,sendMessage} from "./utils";
 import BaseComponent from '../base';
-const {delivery_updated,location_changed,status_changed} = require("$socket-events");
+import { Input } from '@angular/core';
+import { SocketEvent } from '$shared/types';
 @Component({
   selector: 'app-socket',
   standalone: true,
@@ -10,16 +11,19 @@ const {delivery_updated,location_changed,status_changed} = require("$socket-even
   styleUrl: './socket.component.css'
 })
 export class SocketComponent extends BaseComponent{
+  @Input() events? : SocketEvent [] = [];
   socket = null;
   readonly clientId = this.uniqid("socket-client-id");
   isConnected : boolean = false;
   init(){
-    console.log("initiallizing socketttttt");
     this.socket = connect({
       clientId : this.clientId,
       onOpen : ()=>{
         this.isConnected = true;
-        this.sendMessage(delivery_updated);
+        //initialize events
+        this.events?.map(({event,callback})=>{
+          this.socket.on(event,callback);
+        });
       },
       onClose : ()=>{
         console.log(this.clientId," socket connection closed");
