@@ -11,7 +11,7 @@
           <mat-form-field class="form-field">
             <mat-label>Address : </mat-label>
             <input type="text"
-              placeholder="Delivery Address"
+              placeholder="Location"
               matInput
               name="address" matInput 
               id = "delivery-address-selector"
@@ -22,7 +22,7 @@
            />
             <map-location inputSelector="#delivery-address-selector" [location]="delivery?.location" [onPlaceChange] = "onLocationPlaceChange"></map-location>
               @if (!isFieldValid('address')) {
-                <mat-error>Delivery address <strong>required</strong></mat-error>
+                <mat-error>Location <strong>required</strong></mat-error>
               }
           
           </mat-form-field>

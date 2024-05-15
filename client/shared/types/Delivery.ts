@@ -1,4 +1,7 @@
 import Location from "./Location"
+
+export type Status = 'open' | 'picked-up' | 'in-transit' | 'delivered' | 'failed';
+
 export default interface Delivery {
     delivery_id : string;
     package_id : string;
@@ -7,5 +10,5 @@ export default interface Delivery {
     end_time : Date;
     location : Location;
     address : string,
-    status : 'open' | 'picked-up' | 'in-transit' | 'delivered' | 'failed';
+    status : Status;
 }

@@ -12,6 +12,8 @@ import { SocketEvent } from '$shared/types';
 })
 export class SocketComponent extends BaseComponent{
   @Input() events? : SocketEvent [] = [];
+  @Input() onOpen? : (context : SocketComponent)=> void;
+  @Input() onClose? : (context: SocketComponent) => void;
   socket = null;
   readonly clientId = this.uniqid("socket-client-id");
   isConnected : boolean = false;
@@ -20,12 +22,18 @@ export class SocketComponent extends BaseComponent{
       clientId : this.clientId,
       onOpen : ()=>{
         this.isConnected = true;
+        if(this.onOpen){
+          this.onOpen(this);
+        }
         //initialize events
         this.events?.map(({event,callback})=>{
           this.socket.on(event,callback);
         });
       },
       onClose : ()=>{
+        if(this.onClose){
+          this.onClose(this);
+        }
         console.log(this.clientId," socket connection closed");
         this.isConnected = false;
       }
