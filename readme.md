@@ -1,3 +1,5 @@
+[![Test Video](https://img.youtube.com/vi/Q5OYUiQBSlg/0.jpg)](https://youtu.be/Q5OYUiQBSlg " | Sample")
+
 Créez un fichier d'environnement `".env"` à la racine du projet puis y ajouter la variable d'environnement " MONGODB_URL, représentant l'url de la base de données mongo_db, encodant à la fois le nom d'utilisateur et le mot de pass de la forme : `mongodb+srv://{{username}}:{{password}}@{{host}}`
 
 Environnement de développement
