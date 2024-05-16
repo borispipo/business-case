@@ -31,7 +31,7 @@
           </div>
       </div>
       <div class="map-container">
-        <app-map [locationFrom]="package?.from_location" [locationTo]="package?.to_location" [location]="delivery?.location">
+        <app-map [locationFrom]="package?.from_location" [locationTo]="package?.to_location" [location]="location">
         </app-map>
       </div>
       <div class="delivery-driver-container {{isLoading || !delivery ? 'disabled':''}}">
