@@ -7,6 +7,7 @@
   "scripts": {
     "ng": "ng",
     "start-server": "nodemon index.js",
+    "start-vps" : "set NODE_ENV=production && set PORT=3255 && node index",
     "start": "npm run start-server && npm run serve",
     "dev": "npm run build-dev && npm run start-dev",
     "serve-driver": "ng serve web-driver --proxy-config proxy.conf.json",
