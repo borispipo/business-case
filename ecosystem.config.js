@@ -3,7 +3,7 @@ module.exports = {
     {
         "name": "business-case",
         "script": "index",
-        "cwd": "./",
+        "cwd": ".",
     		env: {
     			NODE_ENV: 'development',
     			PORT : '3255',
