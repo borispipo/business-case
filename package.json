@@ -18,7 +18,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "new-ng-app": " ng generate application web-tracker",
-    "build": "ng build",
+    "build": "npm run build-driver && npm run build-tracker && npm run build-admin",
+    "start-prod" : "npm run build && npm run start-server",
     "watch": "ng build --watch --configuration development"
   },
   "keywords": [
