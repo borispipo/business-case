@@ -2,8 +2,8 @@ module.exports = {
   apps : [
     {
         "name": "business-case",
-        "script": "index",
-        "cwd": ".",
+        "script": "index.js",
+        "cwd": "./",
     		env: {
     			NODE_ENV: 'development',
     			PORT : '3255',
