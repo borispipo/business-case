@@ -5,6 +5,7 @@
     </div>
     <div *ngIf = "delivery" class="active-delivery-details">
         <list-detail label="ID" value={{delivery.delivery_id}}></list-detail>
+        <list-detail label="Package ID" value={{delivery.package_id}}></list-detail>
         <list-detail label="Status" value = {{delivery.status}}/>
         <list-detail label="Pickup time" value={{dateToDefaultFormat(delivery.pickup_time)}}></list-detail>
         <list-detail label="Start Time" value = {{dateToDefaultFormat(delivery.start_time)}}/>
