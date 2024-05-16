@@ -1,6 +1,5 @@
-Environnement de développement
-
-Créeer un fichier d'environnement `".env"` à la racine du projet puis y ajouter la variable d'environnement " MONGODB_URL, représentant l'url de la base de données mongo_db, encodant à la fois le nom d'utilisateur et le mot de pass de la forme : `mongodb+srv://{{username}}:{{password}}@{{host}}`
+Environnement de développement  
+Créez un fichier d'environnement `".env"` à la racine du projet puis y ajouter la variable d'environnement " MONGODB_URL, représentant l'url de la base de données mongo_db, encodant à la fois le nom d'utilisateur et le mot de pass de la forme : `mongodb+srv://{{username}}:{{password}}@{{host}}`
 
 1.  Installation des packages : `npm install`
 2.  Server API REST : `npm run start-server`
