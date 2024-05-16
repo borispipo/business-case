@@ -68,6 +68,7 @@ export class AppComponent extends MapComponent{
         this.delivery = delivery;
         if(delivery){
           this.location = delivery.location;
+          this.updateCurrentPosition();
           return getPackage(delivery.package_id).then((p)=>{
             this.package = p;
           });
@@ -81,7 +82,6 @@ export class AppComponent extends MapComponent{
     this.onConnectionOpen = this.onConnectionOpen.bind(this);
     this.onConnectionClose = this.onConnectionClose.bind(this);
     this.fetchDelivery();
-    this.updateCurrentPosition();
     clearInterval(this.intervalRef);
     this.intervalRef = setInterval(()=>{
       this.updateCurrentPosition();
