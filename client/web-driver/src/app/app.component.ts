@@ -81,6 +81,7 @@ export class AppComponent extends MapComponent{
     this.onConnectionOpen = this.onConnectionOpen.bind(this);
     this.onConnectionClose = this.onConnectionClose.bind(this);
     this.fetchDelivery();
+    this.updateCurrentPosition();
     clearInterval(this.intervalRef);
     this.intervalRef = setInterval(()=>{
       this.updateCurrentPosition();
