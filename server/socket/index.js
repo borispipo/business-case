@@ -97,7 +97,7 @@ const emit = module.exports.emit = (...rest)=>{
             console.log(" client id has not valid for client ",clientId);
             return;
         }
-        console.log("emitint socket event on client with id ",clientId);
+        console.log("emitint socket event on client with id ",clientId,rest);
         socket.emit(...rest);
     });
 }

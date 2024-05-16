@@ -41,7 +41,7 @@ export class AppComponent extends MapComponent{
   }
   updateStatus(newStatus:Status){
     this.delivery.status = newStatus;
-    this.sendMessage(status_changed,{event:status_changed,delivery_id:this.deliveryId, status:newStatus});
+    this.sendMessage(status_changed,{event:status_changed,delivery_id:this.delivery?.delivery_id, status:newStatus});
   }
   sendMessage(event,data){
     if(!this.delivery || !this.socketContext) return;
@@ -49,14 +49,14 @@ export class AppComponent extends MapComponent{
   }
   //update driver postion
   updateCurrentPosition(){
-    if(!this.deliveryId) return;
+    if(!this.delivery) return;
     this.getCurrentPosition((position)=>{
       if(!position) return;
-      if(this.location && position?.lat == this.location?.lat && position?.lng == this.location?.lng){
+      if(this.delivery?.location?.lat == position?.lat && this.delivery?.location?.lng == position?.lng){
         return;
       }
       this.location = position;
-      this.sendMessage(location_changed,{event:location_changed,delivery_id:this.deliveryId, location:position});
+      this.sendMessage(location_changed,{event:location_changed,delivery_id:this.delivery?.delivery_id, location:position});
     });
   }
   fetchDelivery () : void {
