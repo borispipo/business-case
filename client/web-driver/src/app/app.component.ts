@@ -49,8 +49,10 @@ export class AppComponent extends MapComponent{
   }
   //update driver postion
   updateCurrentPosition(){
+    if(!this.deliveryId) return;
     this.getCurrentPosition((position)=>{
-      if(position?.lat == this.location?.lat && position?.lng == this.location?.lng){
+      if(!position) return;
+      if(this.location && position?.lat == this.location?.lat && position?.lng == this.location?.lng){
         return;
       }
       this.location = position;
@@ -65,13 +67,13 @@ export class AppComponent extends MapComponent{
       getDelivery(this.deliveryId).then((delivery)=>{
         this.delivery = delivery;
         if(delivery){
+          this.location = delivery.location;
           return getPackage(delivery.package_id).then((p)=>{
             this.package = p;
           });
         }
       }).finally(()=>{
         this.isLoading = false;
-        console.log("update loadddingggg ");
       });
     }
   }

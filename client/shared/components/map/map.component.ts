@@ -63,11 +63,11 @@ export class MapComponent extends BaseComponent{
       this.mapOptions.center = location;
     }
   }
-  getCurrentPosition(callback : (location:Location)=>void = null): void {
+  getCurrentPosition(callback : (location:Location)=>void = null,centerOnLocation:boolean = true): void {
     navigator.geolocation.getCurrentPosition((position) => {
       if(typeof position?.coords.latitude == "number" && typeof position?.coords.longitude == "number"){
         const location : Location = {lat: position?.coords.latitude,lng: position?.coords.longitude};
-        this.centerOnLocation(location);
+        if(centerOnLocation) this.centerOnLocation(location);
         if(callback){
           callback(location);
         }
